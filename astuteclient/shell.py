@@ -23,11 +23,11 @@ import sys
 from oslo_utils import encodeutils
 import six
 
-import astclient
-from astclient import client as asclient
-from astclient.common import utils
-from astclient import exc
-from astclient.openstack.common import cliutils
+import astuteclient
+from astuteclient import client as asclient
+from astuteclient.common import utils
+from astuteclient import exc
+from astuteclient.openstack.common import cliutils
 
 
 def _positive_non_zero_int(argument_value):
@@ -96,7 +96,7 @@ class AstuteShell(object):
 
         parser.add_argument('--astute-api-version',
                             default=cliutils.env(
-                                'ASTUTE_API_VERSION', default='2'),
+                                'ASTUTE_API_VERSION', default='1'),
                             help='Defaults to env[ASTUTE_API_VERSION] '
                             'or 2.')
 

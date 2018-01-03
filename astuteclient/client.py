@@ -391,6 +391,7 @@ def get_client(version, **kwargs):
             * os_insecure: allow insecure SSL (no cert verification)
     """
     endpoint = kwargs.get('os_endpoint') or kwargs.get('astute_url')
+    print('----------------------------------------------client---------------------')
 
     return Client(version, endpoint, **kwargs)
 

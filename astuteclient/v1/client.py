@@ -35,6 +35,8 @@ class Client(object):
     """
 
     def __init__(self, *args, **kwargs):
+        print 'dasdsdasdasdsadasdasdas'
+        print '====================================='
         """Initialize a new client for the Astute v1 API."""
         self.auth_plugin = kwargs.get('auth_plugin') \
             or asclient.get_auth_plugin(*args, **kwargs)
