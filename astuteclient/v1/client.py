@@ -18,8 +18,9 @@ import copy
 
 from astuteclient import client as asclient
 from astuteclient.openstack.common.apiclient import client
-from astuteclient.v2 import meters
 from keystoneclient import exceptions
+
+from astuteclient.v1 import billing_types
 
 class Client(object):
     """Client for the astute v1 API.
@@ -56,6 +57,5 @@ class Client(object):
         )
 
         self.http_client = client.BaseClient(self.client)
-        self.meters = meters.MeterManager(self.http_client)
-
+        self.billing_types = billing_types.BillingTypeManager(self.http_client)
 

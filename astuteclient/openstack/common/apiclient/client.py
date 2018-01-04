@@ -304,7 +304,7 @@ class HTTPClient(object):
         ...     from keystoneclient.v2_0 import client
         ...     client.Client(openstack_client)
         ...     # use them
-        ...     openstack_client.identity.tenants.list()
+        ...     openstack_client.identity.tenants.list(
         ...     openstack_client.compute.servers.list()
         """
         service_type = base_client_instance.service_type
@@ -352,6 +352,10 @@ class BaseClient(object):
         return self.client_request("HEAD", url, **kwargs)
 
     def get(self, url, **kwargs):
+        print('+++++++++++++++++++++Get function++++++++++++++++++++')
+        print(kwargs)
+        print(url)
+        print('+++++++++++++++++++++++++')
         return self.client_request("GET", url, **kwargs)
 
     def post(self, url, **kwargs):

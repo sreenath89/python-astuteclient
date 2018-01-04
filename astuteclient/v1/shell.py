@@ -37,8 +37,10 @@ import astuteclient.exc as exc
            'timestamp <= this value')
 def do_billing_types():
     """
+    List the billing types
     """
     print "Sample Billing type"
+
 def do_sample_list(cc, args):
     '''List the samples for this meters.'''
     fields = {'counter_name': args.counter_name,

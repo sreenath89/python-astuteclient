@@ -67,7 +67,12 @@ class Manager(object):
     def _list(self, url, response_key=None, obj_class=None, body=None,
               expect_single=False):
         try:
+            print 'URRRRRRRLLLLLLLLLLLLLLLLLLLLLL'
+            print url
+            print('=============================')
+            print self.__dict__
             resp = self.api.get(url)
+            print resp.__dict__
         except exceptions.NotFound:
             raise exc.HTTPNotFound
         if not resp.content:

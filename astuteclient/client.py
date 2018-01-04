@@ -353,9 +353,16 @@ def _adjust_kwargs(kwargs):
 
 def Client(version, *args, **kwargs):
     client_kwargs = _adjust_kwargs(kwargs)
+    print 'reached here'
 
+    print 'sadsdsdsad'
     module = utils.import_versioned_module(version, 'client')
+    print 'errrrrrror'
+    print module.__dict__
+    print '---------------'
     client_class = getattr(module, 'Client')
+    print '===='
+    print client_class
     return client_class(*args, **client_kwargs)
 
 
@@ -390,8 +397,10 @@ def get_client(version, **kwargs):
             * os_key: SSL private key
             * os_insecure: allow insecure SSL (no cert verification)
     """
+    print 'asdasdsadas'
     endpoint = kwargs.get('os_endpoint') or kwargs.get('astute_url')
     print('----------------------------------------------client---------------------')
+    print version
 
     return Client(version, endpoint, **kwargs)
 

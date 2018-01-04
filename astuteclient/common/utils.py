@@ -139,6 +139,10 @@ def find_resource(manager, name_or_id):
 
 def import_versioned_module(version, submodule=None):
     module = 'astuteclient.v%s' % version
+
+    print('=======================')
+    print(module)
+    print('======================')
     if submodule:
         module = '.'.join((module, submodule))
     return importutils.import_module(module)
