@@ -171,6 +171,11 @@ class HTTPClient(object):
              requests.Session.request (such as `headers`) or `json`
              that will be encoded as JSON and used as `data` argument
         """
+        print('INSIDE REQUEST-APICLIENT')
+        print('------------------------------------------')
+        print(method)
+        print(url)
+        print(kwargs)
         kwargs.setdefault("headers", {})
         kwargs["headers"]["User-Agent"] = self.user_agent
         if self.original_ip:
@@ -191,7 +196,7 @@ class HTTPClient(object):
             self.times.append(("%s %s" % (method, url),
                                start_time, time.time()))
         self._http_log_resp(resp)
-
+        print('----------------------------------')
         self.last_request_id = resp.headers.get('x-openstack-request-id')
 
         if resp.status_code >= 400:
@@ -228,6 +233,7 @@ class HTTPClient(object):
             `HTTPClient.request`
         """
 
+        print('*************CLIENT REQUEST******************')
         filter_args = {
             "endpoint_type": client.endpoint_type or self.endpoint_type,
             "service_type": client.service_type,
@@ -279,6 +285,11 @@ class HTTPClient(object):
                 raise unauth_ex
             self.cached_token = token
             client.cached_endpoint = endpoint
+
+            print('---------------------Before printing token-------------------')
+            print token
+            print endpoint
+            print('*******************************************')
             kwargs["headers"]["X-Auth-Token"] = token
             return self.request(
                 method, self.concat_url(endpoint, url), **kwargs)
@@ -379,6 +390,10 @@ class BaseClient(object):
         :param version_map: a dict of client classes keyed by version
         :rtype: a client class for the requested API version
         """
+        print('*************GET_CLASS**********************')
+        print(api_name)
+        print(version)
+        print('************************')
         try:
             client_path = version_map[str(version)]
         except (KeyError, ValueError):

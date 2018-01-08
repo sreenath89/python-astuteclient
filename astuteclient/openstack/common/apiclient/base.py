@@ -114,6 +114,7 @@ class BaseManager(HookableMixin):
         self.client = client
 
     def _list(self, url, response_key=None, obj_class=None, json=None):
+        print('LISTEEEEEE')
         """List the collection.
 
         :param url: a partial URL, e.g., '/servers'

@@ -194,11 +194,17 @@ def _get_endpoint(ks_session, **kwargs):
 
     # set service specific endpoint types
     endpoint_type = kwargs.get('endpoint_type') or 'publicURL'
-    service_type = kwargs.get('service_type') or 'metering'
+    service_type = kwargs.get('service_type') or 'astute'
 
     endpoint = ks_session.get_endpoint(service_type=service_type,
                                        interface=endpoint_type,
                                        region_name=kwargs.get('region_name'))
+
+
+    print('ENDPOINTTTTT')
+    print(endpoint)
+    print(endpoint_type)
+    print(service_type)
 
     return endpoint
 
@@ -357,8 +363,7 @@ def Client(version, *args, **kwargs):
 
     print 'sadsdsdsad'
     module = utils.import_versioned_module(version, 'client')
-    print 'errrrrrror'
-    print module.__dict__
+    print module
     print '---------------'
     client_class = getattr(module, 'Client')
     print '===='

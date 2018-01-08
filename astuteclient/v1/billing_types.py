@@ -1,15 +1,8 @@
 from astuteclient.common import base
 
 class BillingType(base.Resource):
-    def __init__(self, manager, info, loaded=False):
-        _d = {six.u('type_id'): info}
-        super(BillingType, self).__init__(manager, _d, loaded)
-
     def __repr__(self):
         return "<BillingType %s>" % self._info
-
-    def data(self, **kwargs):
-        return self.manager.data(self, **kwargs)
 
 class BillingTypeManager(base.Manager):
     """
@@ -17,19 +10,28 @@ class BillingTypeManager(base.Manager):
     """
     resource_class = BillingType
 
+    print('INSIDE BILINGTYPEMANAGER CLASS')
+
     def list(self, **kwargs):
         """
         List all the Billing Types
         """
-        path = '/billing/type'
+        url = '/v1/billing/type'
         qparams = {}
-        return self._list("/v1/billing/type", "billing_types")
+        return self._list(url, "")
+
     
-    def get(self, billing_type):
+    def get(self, id):
         """
         Get the details of an individual billing type
         """
-        return self._get("/v1/billing/type%s" % base.getid(flavor), "billing_type")
+        #path = self._get("/v1/billing/type" + id)
+        path = "/v1/billing/type/" + id
+
+        try:
+            return self._list(path, expect_single=True)[0]
+        except IndexError:
+            return None
     
     def create(self, name, code):
         """

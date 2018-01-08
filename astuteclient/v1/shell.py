@@ -15,7 +15,15 @@
 
 from astuteclient.common import utils
 import astuteclient.exc as exc
+import argparse
 
+
+class NotEmptyAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        values = values or getattr(namespace, self.dest)
+        if not values or values.isspace():
+            raise exc.CommandError('%s should not be empty' % self.dest)
+        setattr(namespace, self.dest, values)
 
 @utils.arg('-m', '--metaquery', metavar='<METAQUERY>',
            help='Query into the metadata metadata.key=value:..')
@@ -35,11 +43,39 @@ import astuteclient.exc as exc
 @utils.arg('--end', metavar='<END_TIMESTAMP>',
            help='ISO date in UTC which limits events by '
            'timestamp <= this value')
-def do_billing_types():
+def do_billing_types(cc, args):
     """
     List the billing types
     """
+
+    print('INISDE do_billing_type')
+    print('========================')
+    print(args)
+    print(cc)
     print "Sample Billing type"
+    print('BEFORE FETCHING THE DATA')
+    billing_types = cc.billing_types.list()
+    field_labels = ['Id', 'Name', 'Status', 'Code']
+    fields = ['id', 'name', 'status', 'code']
+    print('BEFORE PRINTING')
+    utils.print_list(billing_types, fields, field_labels, sortby=0)
+
+@utils.arg('--billing_type_id', metavar='<ID of Billing Type>', action=NotEmptyAction,
+           help='ID of the billing type to show.')
+def do_show_billing_type(cc, args):
+    try:
+        print('Inside show billing type functin')
+        print(args)
+        billing_type = cc.billing_types.get(args.billing_type_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Billing Type Not Found : %s' %args.billing_type_id)
+
+    field_labels = ['Id', 'Name', 'Status', 'Code']
+    fields = ['id', 'name', 'status', 'code']
+    print('before data')
+    data = dict((f, getattr(billing_type, f, '')) for f in fields)
+    print('before printing')
+    utils.print_dict(data, wrap=72)
 
 def do_sample_list(cc, args):
     '''List the samples for this meters.'''

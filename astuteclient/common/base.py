@@ -66,31 +66,57 @@ class Manager(object):
 
     def _list(self, url, response_key=None, obj_class=None, body=None,
               expect_single=False):
+
+        print('IN THE _LIST')
+        print(url)
         try:
-            print 'URRRRRRRLLLLLLLLLLLLLLLLLLLLLL'
-            print url
-            print('=============================')
-            print self.__dict__
             resp = self.api.get(url)
-            print resp.__dict__
+            print(resp)
         except exceptions.NotFound:
             raise exc.HTTPNotFound
         if not resp.content:
             raise exc.HTTPNotFound
         body = resp.json()
+        print(body)
+        '''
+        try:
+            print 'URRRRRRRLLLLLLLLLLLLLLLLLLLLLL'
+            print url
+            print('=============================')
+            #print self.__dict__
+            resp = self.api.get(url)
+            print resp
+            #print resp.__dict__
+        #except exceptions.NotFound:
+        except Exception, e:
+            print(e)
+            print('**********************')
+            #raise exc.HTTPNotFound
+        if not resp.content:
+            raise exc.HTTPNotFound
+        body = resp.json()
+        '''
 
+        print('******BODY****')
         if obj_class is None:
             obj_class = self.resource_class
-
+        print('**b1**')
+        print('response key is')
+        print(response_key)
         if response_key:
+            print('Entering the check')
             try:
                 data = body[response_key]
             except KeyError:
                 return []
-        else:
+        else: 
+            print('ENTERING ELSEEEE')
             data = body
+        print('**b2**')
         if expect_single:
             data = [data]
+        print(obj_class)
+        print('before return')
         return [obj_class(self, res, loaded=True) for res in data if res]
 
     def _update(self, url, body, response_key=None):

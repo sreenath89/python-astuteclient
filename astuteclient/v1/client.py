@@ -36,7 +36,12 @@ class Client(object):
     """
 
     def __init__(self, *args, **kwargs):
+        print('INIT INISDE CLIENT.PY > INSIDE V1')
         print 'dasdsdasdasdsadasdasdas'
+        print('********')
+        print(args)
+        print('******')
+        print(kwargs)
         print '====================================='
         """Initialize a new client for the Astute v1 API."""
         self.auth_plugin = kwargs.get('auth_plugin') \
@@ -55,6 +60,8 @@ class Client(object):
             user_agent=kwargs.get('user_agent'),
             http=kwargs.get('http')
         )
+
+        print(self.client)
 
         self.http_client = client.BaseClient(self.client)
         self.billing_types = billing_types.BillingTypeManager(self.http_client)
