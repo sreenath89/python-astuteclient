@@ -21,6 +21,7 @@ from astuteclient.openstack.common.apiclient import client
 from keystoneclient import exceptions
 
 from astuteclient.v1 import billing_types
+from astuteclient.v1 import plans
 
 class Client(object):
     """Client for the astute v1 API.
