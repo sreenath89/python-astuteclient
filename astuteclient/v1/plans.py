@@ -9,6 +9,7 @@ class Plan(base.Resource):
 class PlanManager(base.Manager):
     """
     """
+    resource_class = Plan
     
     def list(self, **kwargs):
         """
