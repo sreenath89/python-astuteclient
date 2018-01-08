@@ -65,4 +65,6 @@ class Client(object):
 
         self.http_client = client.BaseClient(self.client)
         self.billing_types = billing_types.BillingTypeManager(self.http_client)
+        self.plans = plans.PlanManager(self.http_client)
+        
 

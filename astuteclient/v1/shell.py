@@ -63,6 +63,7 @@ def do_billing_types(cc, args):
 @utils.arg('--billing_type_id', metavar='<ID of Billing Type>', action=NotEmptyAction,
            help='ID of the billing type to show.')
 def do_show_billing_type(cc, args):
+    '''Display details of a billing type'''
     try:
         print('Inside show billing type functin')
         print(args)
@@ -76,6 +77,17 @@ def do_show_billing_type(cc, args):
     data = dict((f, getattr(billing_type, f, '')) for f in fields)
     print('before printing')
     utils.print_dict(data, wrap=72)
+
+
+def do_list_plans(cc, args):
+    '''List all the available plans'''
+    print('Inside do list plans function')
+    plans = cc.plans.list()
+    field_labels = ['Status', 'Code', 'Name', 'Billing Type', 'Rate']
+    fields = ['status', 'code', 'name', 'billing_type', 'rate']
+    print('BEFORE PRINTING PLAN LIST')
+    utils.print_list(plans, fields, field_labels, sortby=0)
+    
 
 def do_sample_list(cc, args):
     '''List the samples for this meters.'''
