@@ -105,9 +105,24 @@ def do_plan_list(cc, args):
         print('BEFORE PRINTING PLAN LIST')
         utils.print_list(plans, fields, field_labels, sortby=0)
     
+@utils.arg('--plan_id', metavar='<Id of the Plan>', action=NotEmptyAction,
+           help='Id of the Plan.')
 def do_plan_get(cc,args):
     '''Get the details of a plan'''
     print('Get plan details')
+    try:
+        print('Inside show billing type functin')
+        print(args)
+        plan = cc.plan.get(args.billing_type_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Plan Not Found : %s' %args.plan_id)
+    else:
+        field_labels = ['Status', 'Code', 'Name', 'Billing Type', 'Rate']
+        fields = ['status', 'code', 'name', 'billing_type', 'rate']
+        print('before data')
+        data = dict((f, getattr(plan, f, '')) for f in fields)
+        print('before printing')
+        utils.print_dict(data, wrap=72)
     
 def do_plan_create(cc, args):
     '''Create a new plan'''

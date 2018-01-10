@@ -71,7 +71,7 @@ class Client(object):
         self.billing_types   = billing_types.BillingTypeManager(self.http_client)
         self.plans           = plans.PlanManager(self.http_client)
         self.discount_types  = discount_types.DiscountTypeManager(self.http_client)
-        self.discounts        = discounts.DiscountManager(self.http_client)
+        self.discounts       = discounts.DiscountManager(self.http_client)
         self.invoices        = invoices.InvoiceManager(self.http_client)
         
 
