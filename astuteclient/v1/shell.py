@@ -16,6 +16,7 @@
 from astuteclient.common import utils
 import astuteclient.exc as exc
 import argparse
+from astute.controllers import plan_attrs
 
 
 class NotEmptyAction(argparse.Action):
@@ -43,26 +44,29 @@ class NotEmptyAction(argparse.Action):
 @utils.arg('--end', metavar='<END_TIMESTAMP>',
            help='ISO date in UTC which limits events by '
            'timestamp <= this value')
-def do_billing_types(cc, args):
+def do_billing_type_list(cc, args):
     """
     List the billing types
     """
-
     print('INISDE do_billing_type')
     print('========================')
     print(args)
     print(cc)
     print "Sample Billing type"
     print('BEFORE FETCHING THE DATA')
-    billing_types = cc.billing_types.list()
-    field_labels = ['Id', 'Name', 'Status', 'Code']
-    fields = ['id', 'name', 'status', 'code']
-    print('BEFORE PRINTING')
-    utils.print_list(billing_types, fields, field_labels, sortby=0)
+    try:
+        billing_types = cc.billing_types.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error:No Billing Types Found!')
+    else:
+        field_labels = ['Id', 'Name', 'Status', 'Code']
+        fields = ['id', 'name', 'status', 'code']
+        print('BEFORE PRINTING')
+        utils.print_list(billing_types, fields, field_labels, sortby=0)
 
 @utils.arg('--billing_type_id', metavar='<ID of Billing Type>', action=NotEmptyAction,
            help='ID of the billing type to show.')
-def do_show_billing_type(cc, args):
+def do_billing_type_get(cc, args):
     '''Display details of a billing type'''
     try:
         print('Inside show billing type functin')
@@ -70,43 +74,105 @@ def do_show_billing_type(cc, args):
         billing_type = cc.billing_types.get(args.billing_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Billing Type Not Found : %s' %args.billing_type_id)
-
-    field_labels = ['Id', 'Name', 'Status', 'Code']
-    fields = ['id', 'name', 'status', 'code']
-    print('before data')
-    data = dict((f, getattr(billing_type, f, '')) for f in fields)
-    print('before printing')
-    utils.print_dict(data, wrap=72)
-
-
-def do_list_plans(cc, args):
-    '''List all the available plans'''
-    print('Inside do list plans function')
-    plans = cc.plans.list()
-    field_labels = ['Status', 'Code', 'Name', 'Billing Type', 'Rate']
-    fields = ['status', 'code', 'name', 'billing_type', 'rate']
-    print('BEFORE PRINTING PLAN LIST')
-    utils.print_list(plans, fields, field_labels, sortby=0)
-    
-
-def do_sample_list(cc, args):
-    '''List the samples for this meters.'''
-    fields = {'counter_name': args.counter_name,
-              'resource_id': args.resource_id,
-              'user_id': args.user_id,
-              'project_id': args.project_id,
-              'source': args.source,
-              'start_timestamp': args.start,
-              'end_timestamp': args.end,
-              'metaquery': args.metaquery}
-    try:
-        samples = cc.samples.list(**fields)
-    except exc.HTTPNotFound:
-        raise exc.CommandError('Samples not found: %s' % args.counter_name)
     else:
-        field_labels = ['Resource ID', 'Name', 'Type', 'Volume', 'Timestamp']
-        fields = ['resource_id', 'counter_name', 'counter_type',
-                  'counter_volume', 'timestamp']
-        utils.print_list(samples, fields, field_labels,
-                         sortby=0)
+        field_labels = ['Id', 'Name', 'Status', 'Code']
+        fields = ['id', 'name', 'status', 'code']
+        print('before data')
+        data = dict((f, getattr(billing_type, f, '')) for f in fields)
+        print('before printing')
+        utils.print_dict(data, wrap=72)
 
+def do_billing_type_create(cc, args):
+    '''Create a new billing type'''
+    
+def do_billing_type_update(cc, args):
+    '''Update the details of a billing type'''
+
+def do_billing_type_delete(cc, args):
+    '''Delete a billing type'''
+    
+#################End of Billing Types section#################
+
+def do_plan_list(cc, args):
+    '''List all the available plans'''
+    try:
+        print('Inside do list plans function')
+        plans = cc.plans.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error:No Plans Found!')
+    else:
+        field_labels = ['Status', 'Code', 'Name', 'Billing Type', 'Rate']
+        fields = ['status', 'code', 'name', 'billing_type', 'rate']
+        print('BEFORE PRINTING PLAN LIST')
+        utils.print_list(plans, fields, field_labels, sortby=0)
+    
+def do_plan_get(cc,args):
+    '''Get the details of a plan'''
+    
+def do_plan_create(cc, args):
+    '''Create a new plan'''
+    
+def do_plan_delete(cc, args):
+    '''Delete a plan'''
+
+def do_plan_update(cc, args):
+    '''Update plan details'''
+    
+#################End of Plan section#################
+def do_invoice_list(cc, args):
+    '''List Invoices'''
+    try:
+        invoices = cc.invoices.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error: No Invoices Found!')
+    else:
+        field_labels = ['Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
+        fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
+        utils.print_list(invoices, fields, field_labels, sortby=0)
+    
+def do_invoice_get(cc, args):
+    '''Get details of a invoice'''
+
+#################End of Invoices section#################
+def do_discount_type_list(cc, args):
+    '''List all Discount Types'''
+    try:
+        discount_types = cc.discount_types.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error: No Discount Types Found!')
+    else:
+        field_labels = ['Id', 'Status', 'Code', 'Name']
+        fields = ['id', 'status', 'code', 'name']
+        utils.print_list(discount_types, fields, field_labels, sortby=0)
+    
+def do_discount_type_get(cc, args):
+    '''Get the details of a discount type'''
+
+def do_discount_type_create(cc, args):
+    '''Create a new discount type'''
+
+def do_discount_type_update(cc, args):
+    '''Update the details of a discount type'''
+    
+#################End of Discount Types Section#################
+def do_discount_list(cc, args):
+    '''List all discounts'''
+    try:
+        discounts = cc.discounts.list()
+    except exc.test_HTTPNotFound():
+        raise exc.CommandError('Error: No Discounts Found!')
+    else:
+        field_labels = ['Id', 'Code', 'Name', 'Discount_Type_Id', 'Discount_Type_Code', 'Expiration Date', 'Amt', 'Usage Count']
+        fields = ['id', 'code', 'name', 'discount_type_id', 'discount_type_code', 'expiration_date', 'amt', 'usage_count']
+        utils.print_list(discounts, fields, field_labels, sortby=0)
+    
+def do_discount_get(cc, args):
+    '''Get the details of a individual discount'''
+
+def do_discount_create(cc, args):
+    '''Create a new discount'''
+
+def do_discount_update(cc, args):
+    '''Update the Discount details'''
+    
+#################End of Discounts section#################

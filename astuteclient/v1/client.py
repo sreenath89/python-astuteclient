@@ -22,6 +22,9 @@ from keystoneclient import exceptions
 
 from astuteclient.v1 import billing_types
 from astuteclient.v1 import plans
+from astuteclient.v1 import discount_types
+from astuteclient.v1 import discounts
+from astuteclient.v1 import invoices
 
 class Client(object):
     """Client for the astute v1 API.
@@ -64,8 +67,11 @@ class Client(object):
 
         print(self.client)
 
-        self.http_client = client.BaseClient(self.client)
-        self.billing_types = billing_types.BillingTypeManager(self.http_client)
-        self.plans = plans.PlanManager(self.http_client)
+        self.http_client     = client.BaseClient(self.client)
+        self.billing_types   = billing_types.BillingTypeManager(self.http_client)
+        self.plans           = plans.PlanManager(self.http_client)
+        self.discount_types  = discount_types.DiscountTypeManager(self.http_client)
+        self.discount        = discount.DiscountManager(self.http_client)
+        self.invoices        = invoices.InvoiceManager(self.http_client)
         
 

@@ -1,29 +1,26 @@
 from astuteclient.common import base
 
-class Plan(base.Resource):
+class Discount(base.Resource):
     """
     """
     def __repr__(self):
-        return "<Plan %s>" % self._info
-    
-class PlanManager(base.Manager):
+        return "<Discount %s>" % self._info
+
+class DiscountManager(base.Manager):
     """
     """
-    resource_class = Plan
+    resource = Discount
     
-    def list(self, **kwargs):
+    def list(self):
         """
-        List all the Plans
         """
-        path = '/v1/plan'
-        qparams = {}
+        path = '/v1/discount'
         return self._list(path, "")
-    
-    def get(self, id):
+        
+    def get(self):
         """
-        List the details of an individual plan
         """
-        path = '/v1/plan/' + id
+        path = '/v1/discount/+' + id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
@@ -37,5 +34,3 @@ class PlanManager(base.Manager):
         """
         """
         
-        
-    

@@ -1,41 +1,36 @@
 from astuteclient.common import base
 
-class Plan(base.Resource):
+class DiscountType(base.Resource):
     """
     """
     def __repr__(self):
-        return "<Plan %s>" % self._info
+        return "<DiscountType %s>" % self._info
     
-class PlanManager(base.Manager):
+class DiscountManager(base.Manager):
     """
     """
-    resource_class = Plan
-    
+    resource = DiscountType
+
     def list(self, **kwargs):
         """
-        List all the Plans
         """
-        path = '/v1/plan'
-        qparams = {}
+        path = '/v1/discount/type'
         return self._list(path, "")
     
-    def get(self, id):
+    def get(self):
         """
-        List the details of an individual plan
         """
-        path = '/v1/plan/' + id
+        path = '/v1/discount/type/' + id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
             return None
-    
+        
     def create(self):
         """
         """
-    
+        
+        
     def delete(self):
         """
         """
-        
-        
-    

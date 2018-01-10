@@ -1,41 +1,34 @@
 from astuteclient.common import base
 
-class Plan(base.Resource):
+class Invoice(base.Resource):
     """
     """
     def __repr__(self):
-        return "<Plan %s>" % self._info
-    
-class PlanManager(base.Manager):
+        return "<Invoice %s>" % self._info
+        
+class InvoiceManager(base.Manager):
     """
     """
-    resource_class = Plan
+    resource = Invoice
     
-    def list(self, **kwargs):
+    def list(self):
         """
-        List all the Plans
         """
-        path = '/v1/plan'
-        qparams = {}
+        path = '/v1/invoice'
         return self._list(path, "")
     
-    def get(self, id):
+    def get(self):
         """
-        List the details of an individual plan
         """
-        path = '/v1/plan/' + id
+        path = '/v1/invoice/+' + id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
             return None
-    
+        
     def create(self):
         """
         """
-    
     def delete(self):
         """
         """
-        
-        
-    
