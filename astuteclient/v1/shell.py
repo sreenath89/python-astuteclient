@@ -18,7 +18,6 @@ import astuteclient.exc as exc
 import argparse
 from astute.controllers import plan_attrs
 
-
 class NotEmptyAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         values = values or getattr(namespace, self.dest)
@@ -44,6 +43,7 @@ class NotEmptyAction(argparse.Action):
 @utils.arg('--end', metavar='<END_TIMESTAMP>',
            help='ISO date in UTC which limits events by '
            'timestamp <= this value')
+
 def do_billing_type_list(cc, args):
     """
     List the billing types
@@ -91,7 +91,6 @@ def do_billing_type_update(cc, args):
 def do_billing_type_delete(cc, args):
     '''Delete a billing type'''
     
-#################End of Billing Types section#################
 
 def do_plan_list(cc, args):
     '''List all the available plans'''
@@ -108,15 +107,19 @@ def do_plan_list(cc, args):
     
 def do_plan_get(cc,args):
     '''Get the details of a plan'''
+    print('Get plan details')
     
 def do_plan_create(cc, args):
     '''Create a new plan'''
+    print('Create a new plan')
     
 def do_plan_delete(cc, args):
     '''Delete a plan'''
+    print('Delete plan')
 
 def do_plan_update(cc, args):
     '''Update plan details'''
+    print('Update Plan details')
     
 #################End of Plan section#################
 def do_invoice_list(cc, args):
@@ -132,6 +135,7 @@ def do_invoice_list(cc, args):
     
 def do_invoice_get(cc, args):
     '''Get details of a invoice'''
+    print('Get Invoice details')
 
 #################End of Invoices section#################
 def do_discount_type_list(cc, args):
@@ -147,12 +151,15 @@ def do_discount_type_list(cc, args):
     
 def do_discount_type_get(cc, args):
     '''Get the details of a discount type'''
+    print('Get discount types')
 
 def do_discount_type_create(cc, args):
     '''Create a new discount type'''
+    print('Create new discount type')
 
 def do_discount_type_update(cc, args):
     '''Update the details of a discount type'''
+    print('Update discount type details')
     
 #################End of Discount Types Section#################
 def do_discount_list(cc, args):
@@ -168,11 +175,14 @@ def do_discount_list(cc, args):
     
 def do_discount_get(cc, args):
     '''Get the details of a individual discount'''
+    print('Get discount details')
 
 def do_discount_create(cc, args):
     '''Create a new discount'''
+    print('Create discount')
 
 def do_discount_update(cc, args):
     '''Update the Discount details'''
+    print('Update discount details')
     
 #################End of Discounts section#################
