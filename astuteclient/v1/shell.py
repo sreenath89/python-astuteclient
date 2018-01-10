@@ -148,9 +148,24 @@ def do_invoice_list(cc, args):
         fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
         utils.print_list(invoices, fields, field_labels, sortby=0)
     
+@utils.arg('--invoice_id', metavar='<ID of Invoice>', action=NotEmptyAction,
+           help='ID of the Invoice whose details are to be shown.')
 def do_invoice_get(cc, args):
     '''Get details of a invoice'''
     print('Get Invoice details')
+    try:
+        print('Inside show billing type function')
+        print(args)
+        invoice = cc.invoices.get(args.invoice_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Plan Not Found : %s' %args.invoice_id)
+    else:
+        field_labels = ['Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
+        fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
+        print('before data')
+        data = dict((f, getattr(invoice, f, '')) for f in fields)
+        print('before printing')
+        utils.print_dict(data, wrap=72)
 
 #################End of Invoices section#################
 def do_discount_type_list(cc, args):
@@ -164,9 +179,23 @@ def do_discount_type_list(cc, args):
         fields = ['id', 'status', 'code', 'name']
         utils.print_list(discount_types, fields, field_labels, sortby=0)
     
+@utils.arg('--discount_type_id', metavar='<ID of Discount Type>', action=NotEmptyAction,
+           help='ID of the Discount Type whose details are to be shown.')
 def do_discount_type_get(cc, args):
     '''Get the details of a discount type'''
     print('Get discount types')
+    try:
+        print('Inside show discount type function')
+        print(args)
+        discount_type = cc.discount_types.get(args.discount_type_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Discount Type Not Found : %s' %args.discount_type_id)
+    else:
+        field_labels = ['Id', 'Status', 'Code', 'Name']
+        fields = ['id', 'status', 'code', 'name']     
+        print('before data')
+        data = dict((f, getattr(discount_type, f, '')) for f in fields)
+        print('before printing')
 
 def do_discount_type_create(cc, args):
     '''Create a new discount type'''
@@ -188,9 +217,22 @@ def do_discount_list(cc, args):
         fields = ['id', 'code', 'name', 'discount_type_id', 'discount_type_code', 'expiration_date', 'amt', 'usage_count']
         utils.print_list(discounts, fields, field_labels, sortby=0)
     
+@utils.arg('--discount_id', metavar='<ID of Discount>', action=NotEmptyAction,
+           help='ID of the Discount whose details are to be shown.')
 def do_discount_get(cc, args):
     '''Get the details of a individual discount'''
     print('Get discount details')
+    try:
+        print(args)
+        discount = cc.discounts.get(args.discount_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Discount Not Found : %s' %args.discount_id)
+    else:
+        field_labels = ['Id', 'Code', 'Name', 'Discount_Type_Id', 'Discount_Type_Code', 'Expiration Date', 'Amt', 'Usage Count']
+        fields = ['id', 'code', 'name', 'discount_type_id', 'discount_type_code', 'expiration_date', 'amt', 'usage_count']  
+        print('before data')
+        data = dict((f, getattr(discount, f, '')) for f in fields)
+        print('before printing')   
 
 def do_discount_create(cc, args):
     '''Create a new discount'''
