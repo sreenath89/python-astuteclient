@@ -107,7 +107,7 @@ def do_plan_list(cc, args):
     
 @utils.arg('--plan_id', metavar='<Id of the Plan>', action=NotEmptyAction,
            help='Id of the Plan.')
-def do_plan_get(cc,args):
+def do_plan_get(cc, args):
     '''Get the details of a plan'''
     print('Get plan details')
     try:
@@ -154,11 +154,12 @@ def do_invoice_get(cc, args):
     '''Get details of a invoice'''
     print('Get Invoice details')
     try:
-        print('Inside show billing type function')
+        print('Inside show invoice function')
         print(args)
+        print('-------------After args-----------------')
         invoice = cc.invoices.get(args.invoice_id)
     except exc.HTTPNotFound:
-        raise exc.CommandError('Plan Not Found : %s' %args.invoice_id)
+        raise exc.CommandError('Invoice Not Found : %s' %args.invoice_id)
     else:
         field_labels = ['Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
         fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
@@ -196,6 +197,7 @@ def do_discount_type_get(cc, args):
         print('before data')
         data = dict((f, getattr(discount_type, f, '')) for f in fields)
         print('before printing')
+        utils.print_dict(data, wrap=72)
 
 def do_discount_type_create(cc, args):
     '''Create a new discount type'''
@@ -232,7 +234,8 @@ def do_discount_get(cc, args):
         fields = ['id', 'code', 'name', 'discount_type_id', 'discount_type_code', 'expiration_date', 'amt', 'usage_count']  
         print('before data')
         data = dict((f, getattr(discount, f, '')) for f in fields)
-        print('before printing')   
+        print('before printing')
+        utils.print_dict(data, wrap=72)
 
 def do_discount_create(cc, args):
     '''Create a new discount'''

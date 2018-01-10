@@ -17,10 +17,10 @@ class InvoiceManager(base.Manager):
         path = '/v1/invoice'
         return self._list(path, "")
     
-    def get(self):
+    def get(self, invoice_id):
         """
         """
-        path = '/v1/invoice/+' + id
+        path = '/v1/invoice/+' + invoice_id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:

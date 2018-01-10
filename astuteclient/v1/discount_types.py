@@ -17,10 +17,10 @@ class DiscountTypeManager(base.Manager):
         path = '/v1/discount/type'
         return self._list(path, "")
     
-    def get(self):
+    def get(self, discount_type_id):
         """
         """
-        path = '/v1/discount/type/' + id
+        path = '/v1/discount/type/' + discount_type_id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
