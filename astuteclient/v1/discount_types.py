@@ -9,7 +9,7 @@ class DiscountType(base.Resource):
 class DiscountTypeManager(base.Manager):
     """
     """
-    resource = DiscountType
+    resource_class = DiscountType
 
     def list(self, **kwargs):
         """

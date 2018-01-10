@@ -166,7 +166,7 @@ def do_discount_list(cc, args):
     '''List all discounts'''
     try:
         discounts = cc.discounts.list()
-    except exc.test_HTTPNotFound():
+    except exc.HTTPNotFound():
         raise exc.CommandError('Error: No Discounts Found!')
     else:
         field_labels = ['Id', 'Code', 'Name', 'Discount_Type_Id', 'Discount_Type_Code', 'Expiration Date', 'Amt', 'Usage Count']

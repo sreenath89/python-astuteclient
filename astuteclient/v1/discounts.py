@@ -9,7 +9,7 @@ class Discount(base.Resource):
 class DiscountManager(base.Manager):
     """
     """
-    resource = Discount
+    resource_class = Discount
     
     def list(self):
         """

@@ -9,7 +9,7 @@ class Invoice(base.Resource):
 class InvoiceManager(base.Manager):
     """
     """
-    resource = Invoice
+    resource_class = Invoice
     
     def list(self):
         """
