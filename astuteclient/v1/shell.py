@@ -113,7 +113,7 @@ def do_plan_get(cc,args):
     try:
         print('Inside show billing type functin')
         print(args)
-        plan = cc.plan.get(args.billing_type_id)
+        plan = cc.plans.get(args.billing_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Plan Not Found : %s' %args.plan_id)
     else:
