@@ -16,7 +16,7 @@
 from astuteclient.common import utils
 import astuteclient.exc as exc
 import argparse
-from astute.controllers import plan_attrs
+
 
 class NotEmptyAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
