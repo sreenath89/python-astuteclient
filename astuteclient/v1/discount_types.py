@@ -6,7 +6,7 @@ class DiscountType(base.Resource):
     def __repr__(self):
         return "<DiscountType %s>" % self._info
     
-class DiscountManager(base.Manager):
+class DiscountTypeManager(base.Manager):
     """
     """
     resource = DiscountType
