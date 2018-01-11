@@ -386,9 +386,22 @@ def do_user_billing_type_create(cc, args):
             "id": args.id
         }
     }
+    filter_options = {}
     
+    if getattr(args, 'billing_type_id', None):
+        filter_options['billing_type_id'] = args.billing_type_id
+        
+    if getattr(args, 'user', None):
+        filter_options['user'] = args.user
+        
+    if getattr(args, 'name', None):
+        filter_options['name'] = args.name
+        
+    if getattr(args, 'id', None):
+        filter_options['id'] = args.id
+        
     try:
-        user_bt_mapping = cc.user_billing_types.create(data)
+        user_bt_mapping = cc.user_billing_types.create(**filter_options)
     except Exception, e:
         print(e)
     

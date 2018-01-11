@@ -34,6 +34,9 @@ class UserBillingTypeManager(base.Manager):
         """
         Create a new user-billing type mapping
         """
+        print('CREAAAAATE')
+        print body
+        print('==================')
         path = "/v1/billing/mapping"
         return self._create(path, body)
         
