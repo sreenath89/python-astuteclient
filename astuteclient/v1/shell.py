@@ -393,7 +393,10 @@ def do_user_billing_type_create(cc, args):
         filter_options['id'] = args.id
         
     try:
+        print(filter_options)
+        print('##########')
         user_bt_mapping = cc.user_billing_types.create(**filter_options)
+        
     except Exception, e:
         print(e)
     
