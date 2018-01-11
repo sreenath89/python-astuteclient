@@ -394,10 +394,10 @@ def do_user_billing_type_create(cc, args):
     if getattr(args, 'user', None):
         filter_options['user'] = args.user
         
-    if getattr(args, 'name', None):
+    if getattr(args, 'name', ""):
         filter_options['name'] = args.name
         
-    if getattr(args, 'id', None):
+    if getattr(args, 'id', ""):
         filter_options['id'] = args.id
         
     try:
