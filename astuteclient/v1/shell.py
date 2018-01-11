@@ -100,9 +100,10 @@ def do_billing_type_create(cc, args):
         print('INSIDE DO BILLING TYPE CREATE - shell.py')
         print('##########')
         bt_create = cc.billing_types.create(args.billing_type_name, args.billing_type_code)
-        
     except Exception, e:
         print(e)
+    else:
+        do_billing_type_list(cc, args)
     
 def do_billing_type_update(cc, args):
     '''Update the details of a billing type'''
