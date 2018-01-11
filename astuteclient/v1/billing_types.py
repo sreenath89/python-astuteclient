@@ -38,7 +38,7 @@ class BillingTypeManager(base.Manager):
         Create a New Billing Type
         """
         body = {"name": name, "code":code}
-        return self._create("/v1/billing/type", body, "billing_type")
+        return self._create("/v1/billing/type", body, "")
     
     def delete(self, billing_type):
         """

@@ -82,8 +82,27 @@ def do_billing_type_get(cc, args):
         print('before printing')
         utils.print_dict(data, wrap=72)
 
+@utils.arg(
+    '--billing_type_name', 
+    metavar='<Billing Type Name>', 
+    action=NotEmptyAction,
+    help='Name of the Billing Type')
+
+@utils.arg(
+    '--billing_type_code', 
+    metavar='<Billing Type Code>', 
+    action=NotEmptyAction,
+    help='Code of the Billing Type')
+
 def do_billing_type_create(cc, args):
     '''Create a new billing type'''
+    try:
+        print('INSIDE DO BILLING TYPE CREATE - shell.py')
+        print('##########')
+        bt_create = cc.billing_types.create(args.billing_type_name, args.billing_type_code)
+        
+    except Exception, e:
+        print(e)
     
 def do_billing_type_update(cc, args):
     '''Update the details of a billing type'''
