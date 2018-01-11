@@ -247,7 +247,7 @@ def do_discount_update(cc, args):
     print('Update discount details')
     
 #################End of Discounts section#################
-def do_list_discount_mappings(cc, args):
+def do_discount_mappings_list(cc, args):
     '''List all Discount Mappings'''
     try:
         discount_mapping = cc.discount_mappings.list()
@@ -282,7 +282,7 @@ def do_discount_mapping_update(cc, args):
     print('Update an existing Discount Mapping')
     
 #################End of Discount Mapping section##########
-def do_list_service_types(cc, args):
+def do_service_types_list(cc, args):
     '''List all service types'''
     try:
         service_types = cc.service_types.list()
@@ -309,7 +309,7 @@ def do_service_type_get(cc, args):
         utils.print_dict(data, wrap=72)   
 
 #################End of Service Types section#############
-def do_list_user_plans(cc, args):
+def do_user_plans_list(cc, args):
     '''List all User Plans'''
     try:
         user_plans = cc.user_plans.list()
@@ -336,7 +336,7 @@ def do_user_plan_get(cc, args):
         utils.print_dict(data, wrap=72)
 
 #################End of User Plan Mapping section#########
-def do_list_user_billing_type(cc, args):
+def do_user_billing_type_list(cc, args):
     '''List all User Plans'''
     try:
         user_billing_types = cc.user_billing_types.list()
