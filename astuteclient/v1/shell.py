@@ -264,7 +264,7 @@ def do_discount_mapping_get(cc, args):
     '''Get the details of an individual Discount Mapping'''
     try:
         print(args)
-        discount_mapping = cc.discount_mappings.list(args.discount_mapping_id)
+        discount_mapping = cc.discount_mappings.get(args.discount_mapping_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Error: Discount Mapping Not Found : %s' %args.discount_mapping_id)
     else:
@@ -299,7 +299,7 @@ def do_service_type_get(cc, args):
     '''Get details of a specific service type'''
     try:
         print(args)
-        service_type = cc.service_types.list(args.service_type_id)
+        service_type = cc.service_types.get(args.service_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Error: Service Type Not Found : %s' %args.service_type_id)
     else:
@@ -326,7 +326,7 @@ def do_user_plan_get(cc, args):
     '''Get details of a specific service type'''
     try:
         print(args)
-        user_plan = cc.user_plans.list(args.user_plan_id)
+        user_plan = cc.user_plans.get(args.user_plan_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Error: User Plan Mapping Not Found : %s' %args.user_plan_id)
     else:
@@ -353,7 +353,7 @@ def do_user_billing_type_get(cc, args):
     '''Get details of a specific service type'''
     try:
         print(args)
-        user_billing_type = cc.user_billing_types.list(args.user_billing_type_id)
+        user_billing_type = cc.user_billing_types.get(args.user_billing_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Error:User Billing Type Mapping Not Found : %s' %args.user_billing_type_id)
     else:
