@@ -247,3 +247,119 @@ def do_discount_update(cc, args):
     print('Update discount details')
     
 #################End of Discounts section#################
+def do_list_discount_mappings(cc, args):
+    '''List all Discount Mappings'''
+    try:
+        discount_mapping = cc.discount_mappings.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error: No Discount Mappings Found!')
+    else:
+        field_labels = ['Discount_Type_Id', 'Code', 'Name', 'User', 'Apply Type', 'User Plan', 'Discount Id', 'Expiration Date', 'Amt']
+        fields = ['discount_type_id', 'code', 'name', 'user', 'apply_type', 'user_plan', 'discount_id' ,'expiration_date', 'amt']
+        utils.print_list(discount_mapping, fields, field_labels, sortby=0)
+
+@utils.arg('--discount_mapping_id', metavar='<ID of Discount Mapping>', action=NotEmptyAction,
+           help='ID of the Discount Mapping whose details are to be shown.') 
+def do_discount_mapping_get(cc, args):
+    '''Get the details of an individual Discount Mapping'''
+    try:
+        print(args)
+        discount_mapping = cc.discount_mappings.list(args.discount_mapping_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Error: Discount Mapping Not Found : %s' %args.discount_mapping_id)
+    else:
+        field_labels = ['Discount_Type_Id', 'Code', 'Name', 'User', 'Apply Type', 'User Plan', 'Discount Id', 'Expiration Date', 'Amt']
+        fields = ['discount_type_id', 'code', 'name', 'user', 'apply_type', 'user_plan', 'discount_id' ,'expiration_date', 'amt']  
+        data = dict((f, getattr(discount_mapping, f, '')) for f in fields)
+        utils.print_dict(data, wrap=72) 
+
+def do_discount_mapping_create(cc, args):
+    '''Create a new discount mapping'''
+    print('Create a new discount mapping')
+
+def do_discount_mapping_update(cc, args):
+    '''Update an existing Discount Mapping'''
+    print('Update an existing Discount Mapping')
+    
+#################End of Discount Mapping section##########
+def do_list_service_types(cc, args):
+    '''List all service types'''
+    try:
+        service_types = cc.service_types.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error: No Service Types Found!')
+    else:
+        field_labels = ['Id', 'Name', 'Code', 'Units', 'Status']
+        fields = ['id', 'name', 'code', 'units', 'status']
+        utils.print_list(service_types, fields, field_labels, sortby=0)
+       
+@utils.arg('--service_type_id', metavar='<ID of Service Type>', action=NotEmptyAction,
+           help='ID of the Service Type whose details are to be shown.') 
+def do_service_type_get(cc, args):
+    '''Get details of a specific service type'''
+    try:
+        print(args)
+        service_type = cc.service_types.list(args.service_type_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Error: Service Type Not Found : %s' %args.service_type_id)
+    else:
+        field_labels = ['Id', 'Name', 'Code', 'Units', 'Status']
+        fields = ['id', 'name', 'code', 'units', 'status']
+        data = dict((f, getattr(service_type, f, '')) for f in fields)
+        utils.print_dict(data, wrap=72)   
+
+#################End of Service Types section#############
+def do_list_user_plans(cc, args):
+    '''List all User Plans'''
+    try:
+        user_plans = cc.user_plans.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error: No User Plans Found!')
+    else:
+        field_labels = ['Id', 'User', 'Plan Id', 'Status', 'Creation Date', 'Quantity', 'Contract Period']
+        fields = ['id', 'user', 'plan_id', 'status', 'created_on', 'qty', 'contract_period']
+        utils.print_list(user_plans, fields, field_labels, sortby=0)
+       
+@utils.arg('--user_plan_id', metavar='<ID of User Plan>', action=NotEmptyAction,
+           help='ID of the User Plan whose details are to be shown.') 
+def do_user_plan_get(cc, args):
+    '''Get details of a specific service type'''
+    try:
+        print(args)
+        user_plan = cc.user_plans.list(args.user_plan_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Error: User Plan Mapping Not Found : %s' %args.user_plan_id)
+    else:
+        field_labels = ['Id', 'User', 'Plan Id', 'Status', 'Creation Date', 'Quantity', 'Contract Period']
+        fields = ['id', 'user', 'plan_id', 'status', 'created_on', 'qty', 'contract_period']
+        data = dict((f, getattr(user_plan, f, '')) for f in fields)
+        utils.print_dict(data, wrap=72)
+
+#################End of User Plan Mapping section#########
+def do_list_user_billing_type(cc, args):
+    '''List all User Plans'''
+    try:
+        user_billing_types = cc.user_billing_types.list()
+    except exc.HTTPNotFound():
+        raise exc.CommandError('Error: No User Billing Types Found!')
+    else:
+        field_labels = ['Id', 'User', 'Billing Type', 'Extra Fields']
+        fields = ['id', 'user', 'billing_type', 'extra_fields']
+        utils.print_list(user_billing_types, fields, field_labels, sortby=0)
+       
+@utils.arg('--user_billing_type_id', metavar='<ID of User Plan>', action=NotEmptyAction,
+           help='ID of the User Plan whose details are to be shown.') 
+def do_user_billing_type_get(cc, args):
+    '''Get details of a specific service type'''
+    try:
+        print(args)
+        user_billing_type = cc.user_billing_types.list(args.user_billing_type_id)
+    except exc.HTTPNotFound:
+        raise exc.CommandError('Error:User Billing Type Mapping Not Found : %s' %args.user_billing_type_id)
+    else:
+        field_labels = ['Id', 'User', 'Billing Type', 'Extra Fields']
+        fields = ['id', 'user', 'billing_type', 'extra_fields']
+        data = dict((f, getattr(user_billing_type, f, '')) for f in fields)
+        utils.print_dict(data, wrap=72)
+
+#################End of User Billing Type Mapping section#
