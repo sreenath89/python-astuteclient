@@ -30,17 +30,24 @@ class UserBillingTypeManager(base.Manager):
             return None
         
         
-    def create(self, body):
+    def create(self, billing_type_id = None, user_id = None, name = "", id=""):
         """
         Create a new user-billing type mapping
         """
-        print('CREAAAAATE')
-        print body
-        print('==================')
         path = "/v1/billing/mapping"
+        
+        #Creating the body of the contents to be passed for creating the new mapping
+        body = {
+            "billing_type": billing_type_id,
+            "user": user_id,
+            "extra_fields": {
+                "name": name,
+                "id": id
+            }
+        }
         return self._create(path, body)
         
-        
+    
     def delete(self):
         """
         Delete a user-billing type mapping

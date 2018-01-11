@@ -376,16 +376,8 @@ def do_user_billing_type_get(cc, args):
 @utils.arg('--id', metavar='<Id>', action=NotEmptyAction,
            help='Id-extra fields')
 def do_user_billing_type_create(cc, args):
-    
-    #Setting the data in correct format
-    data = {
-        "billing_type": args.billing_type_id,
-        "user": args.user,
-        "extra_fields": {
-            "name": args.name,
-            "id": args.id
-        }
-    }
+
+    #Initializing    
     filter_options = {}
     
     if getattr(args, 'billing_type_id', None):
