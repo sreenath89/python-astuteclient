@@ -349,8 +349,12 @@ def do_user_billing_type_list(cc, args):
         utils.print_list(user_billing_types, fields, field_labels, sortby=0)
        
 
-@utils.arg('--user_billing_type_id', metavar='<ID of User Plan>', action=NotEmptyAction,
-           help='ID of the User Plan whose details are to be shown.') 
+@utils.arg(
+    '--user_billing_type_id', 
+    metavar='<ID of User Plan>', 
+    action=NotEmptyAction,
+    help='ID of the User Plan whose details are to be shown.')
+ 
 def do_user_billing_type_get(cc, args):
     '''Get details of a specific service type'''
     try:
@@ -364,17 +368,32 @@ def do_user_billing_type_get(cc, args):
         data = dict((f, getattr(user_billing_type, f, '')) for f in fields)
         utils.print_dict(data, wrap=72)
 
-@utils.arg('--billing_type_id', metavar='<Billing Type ID>', action=NotEmptyAction,
-           help='ID of the Billing Type which is to be assigned for the user')
+@utils.arg(
+    '--billing_type_id', 
+    metavar='<Billing Type ID>', 
+    action=NotEmptyAction,
+    help='ID of the Billing Type which is to be assigned for the user')
 
-@utils.arg('--user', metavar='<User ID', action=NotEmptyAction,
-           help='ID of the User for whom the Billing Type is to be mapped')
+@utils.arg(
+    '--user', 
+    metavar='<User ID', 
+    action=NotEmptyAction,
+    help='ID of the User for whom the Billing Type is to be mapped')
 
+@utils.arg(
+    '--name', 
+    default = "",
+    metavar='<Name>', 
+    action=NotEmptyAction,
+    help='Name- extra fields')
 
-@utils.arg('--name', metavar='<Name>', action=NotEmptyAction,
-           help='Name- extra fields')
-@utils.arg('--id', metavar='<Id>', action=NotEmptyAction,
-           help='Id-extra fields')
+@utils.arg(
+    '--id', 
+    default= "",
+    metavar='<Id>', 
+    action=NotEmptyAction,
+    help='Id-extra fields')
+
 def do_user_billing_type_create(cc, args):
 
     #Initializing    

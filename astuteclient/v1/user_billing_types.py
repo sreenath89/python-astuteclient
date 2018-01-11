@@ -35,6 +35,7 @@ class UserBillingTypeManager(base.Manager):
         Create a new user-billing type mapping
         """
         path = "/v1/billing/mapping"
+        print('INSIDE CREAAAAATE')
         
         #Creating the body of the contents to be passed for creating the new mapping
         body = {
