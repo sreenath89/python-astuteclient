@@ -1,4 +1,4 @@
-from astute.common import base
+from astuteclient.common import base
 
 class UserBillingType(base.Resource):
     """
