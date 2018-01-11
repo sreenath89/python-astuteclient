@@ -25,6 +25,10 @@ from astuteclient.v1 import plans
 from astuteclient.v1 import discount_types
 from astuteclient.v1 import discounts
 from astuteclient.v1 import invoices
+from astuteclient.v1 import user_plans
+from astuteclient.v1 import discount_mappings
+from astuteclient.v1 import service_types
+from astuteclient.v1 import user_billing_types
 
 class Client(object):
     """Client for the astute v1 API.
@@ -67,11 +71,16 @@ class Client(object):
 
         print(self.client)
 
-        self.http_client     = client.BaseClient(self.client)
-        self.billing_types   = billing_types.BillingTypeManager(self.http_client)
-        self.plans           = plans.PlanManager(self.http_client)
-        self.discount_types  = discount_types.DiscountTypeManager(self.http_client)
-        self.discounts       = discounts.DiscountManager(self.http_client)
-        self.invoices        = invoices.InvoiceManager(self.http_client)
+        self.http_client        = client.BaseClient(self.client)
+        self.billing_types      = billing_types.BillingTypeManager(self.http_client)
+        self.plans              = plans.PlanManager(self.http_client)
+        self.discount_types     = discount_types.DiscountTypeManager(self.http_client)
+        self.discounts          = discounts.DiscountManager(self.http_client)
+        self.invoices           = invoices.InvoiceManager(self.http_client)
+        self.user_plans         = user_plans.UserPlanManager(self.http_client)
+        self.discount_mappings  = discount_mappings.DiscountMappingManager(self.http_client)
+        self.service_types      = service_types.ServiceTypeManager(self.http_client)
+        self.user_billing_types = user_billing_types.UserBillingTypeManager(self.http_client)
+        
         
 

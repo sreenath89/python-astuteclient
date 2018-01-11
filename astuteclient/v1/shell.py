@@ -182,6 +182,7 @@ def do_discount_type_list(cc, args):
     
 @utils.arg('--discount_type_id', metavar='<ID of Discount Type>', action=NotEmptyAction,
            help='ID of the Discount Type whose details are to be shown.')
+
 def do_discount_type_get(cc, args):
     '''Get the details of a discount type'''
     print('Get discount types')
