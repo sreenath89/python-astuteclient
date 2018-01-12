@@ -30,8 +30,8 @@ class UserBillingTypeManager(base.Manager):
             return None
         
         
-    #def create(self, billing_type_id = None, user = None, name = "", id=""):
-    def create(self, billing_type_id = None, user = None):
+    def create(self, billing_type_id = None, user = None, name = "", id=""):
+    #def create(self, billing_type_id = None, user = None):
         """
         Create a new user-billing type mapping
         """
