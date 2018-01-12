@@ -169,12 +169,6 @@ def do_plan_get(cc, args):
     help='Setup Fee for the new plan')
 
 @utils.arg(
-    '--service_type', 
-    type = int,
-    metavar='<Service Type>',
-    help='Service Type of the new plan')
-
-@utils.arg(
     '--billing_type', 
     metavar='<Billing Type>', 
     type = int,
@@ -203,6 +197,12 @@ def do_plan_get(cc, args):
     metavar='<Storage>', 
     action=NotEmptyAction,
     help='Storage value of the new plan')
+
+@utils.arg(
+    '--service_type_id', 
+    metavar='<Service Type ID>', 
+    action=NotEmptyAction,
+    help='Service Type for the new plan')
   
 def do_plan_create(cc, args):
     '''Create a new plan'''
@@ -211,7 +211,7 @@ def do_plan_create(cc, args):
     filter_options = {}
     
     print('====================')
-    print(args.service_type)
+    print(args.service_type_id)
     print('SERVICE TYPE ABOVE')
     
     if getattr(args, 'plan_name', None):
@@ -226,8 +226,8 @@ def do_plan_create(cc, args):
     if getattr(args, 'setup_fee', None):
         filter_options['setup_fee'] = args.setup_fee
         
-    if getattr(args, 'service_type', ""):
-        filter_options['service_type'] = args.service_type
+    if getattr(args, 'service_type_id', ""):
+        filter_options['service_type_id'] = args.service_type_id
         
     if getattr(args, 'billing_type', None):
         filter_options['billing_type'] = args.billing_type
@@ -245,7 +245,7 @@ def do_plan_create(cc, args):
         filter_options['storage'] = args.storage
         
     print('====================')
-    print(args.service_type)
+    print(args.service_type_id)
     print('SERVICE TYPE ABOVE')
     
     try:
