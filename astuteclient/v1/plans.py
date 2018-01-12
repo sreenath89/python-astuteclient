@@ -48,6 +48,8 @@ class PlanManager(base.Manager):
                 "storage": storage
             }
         }
+        print('CREAAAAAAATE')
+        print(body)
         return self._create(path, body)
     
     def delete(self):

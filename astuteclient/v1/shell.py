@@ -210,6 +210,10 @@ def do_plan_create(cc, args):
     #Initializing    
     filter_options = {}
     
+    print('====================')
+    print(args.service_type)
+    print('SERVICE TYPE ABOVE')
+    
     if getattr(args, 'plan_name', None):
         filter_options['plan_name'] = args.plan_name
         
@@ -239,6 +243,10 @@ def do_plan_create(cc, args):
         
     if getattr(args, 'storage', None):
         filter_options['storage'] = args.storage
+        
+    print('====================')
+    print(args.service_type)
+    print('SERVICE TYPE ABOVE')
     
     try:
         print(filter_options)
