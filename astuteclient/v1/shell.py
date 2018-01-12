@@ -369,12 +369,14 @@ def do_user_plan_get(cc, args):
 
 @utils.arg(
     '--plan_id', 
+    type= int,
     metavar='<Plan ID>', 
     action=NotEmptyAction,
     help='Plan to be assigned to the user')
 
 @utils.arg(
     '--quantity', 
+    type= int,
     metavar='<Quantity>', 
     action=NotEmptyAction,
     help='Quantity')
