@@ -403,7 +403,8 @@ def do_user_plan_create(cc, args):
         user_plan_mapping = cc.user_plans.create(**filter_options)
     except Exception, e:
         print(e)
-        
+    else:
+        do_user_plans_list(cc, args)
 #################End of User Plan Mapping section#########
 
 def do_user_billing_type_list(cc, args):

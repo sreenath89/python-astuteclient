@@ -29,16 +29,15 @@ class UserPlanManager(base.Manager):
         except IndexError:
             return None
     
-    def create(self, abc):
+    def create(self, plan_id = None, user = None, contract_period = None, quantity = None):
         """
         Create a new user plan
         """
         print('INSIDE PLAN MAPPING CREATE')
-        print(abc)
         print('AFTER ABC')
         path = '/v1/plan/mapping'
-        
-        
+        body = {"user": user,"contract_period": contract_period,"plans":{plan_id:quantity}}
+        return self._create(path, body)
         
     def delete(self):    
         """
