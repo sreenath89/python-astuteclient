@@ -355,6 +355,55 @@ def do_user_plan_get(cc, args):
         data = dict((f, getattr(user_plan, f, '')) for f in fields)
         utils.print_dict(data, wrap=72)
 
+@utils.arg(
+    '--user', 
+    metavar='<User ID>', 
+    action=NotEmptyAction,
+    help='ID of the User for whom the Plan is to be mapped')
+
+@utils.arg(
+    '--contact_period', 
+    metavar='<Contract Period>', 
+    action=NotEmptyAction,
+    help='Contract Period for the Plan')
+
+@utils.arg(
+    '--plan_id', 
+    metavar='<Plan ID>', 
+    action=NotEmptyAction,
+    help='Plan to be assigned to the user')
+
+@utils.arg(
+    '--quantity', 
+    metavar='<Quantity>', 
+    action=NotEmptyAction,
+    help='Quantity')
+
+def do_user_plan_create(cc, args):
+    '''Assign a plan for the user'''
+    
+    #Initializing    
+    filter_options = {}
+    
+    if getattr(args, 'user', None):
+        filter_options['user'] = args.user
+        
+    if getattr(args, 'contract_period', None):
+        filter_options['contract_period'] = args.contract_period
+        
+    if getattr(args, 'plan_id', None):
+        filter_options['plan_id'] = args.plan_id
+        
+    if getattr(args, 'quantity', None):
+        filter_options['quantity'] = args.quantity
+    
+    try:
+        print(filter_options)
+        print('##########')
+        user_plan_mapping = cc.user_plans.create(**filter_options)
+    except Exception, e:
+        print(e)
+        
 #################End of User Plan Mapping section#########
 
 def do_user_billing_type_list(cc, args):

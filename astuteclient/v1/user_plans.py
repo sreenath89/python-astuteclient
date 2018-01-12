@@ -23,17 +23,22 @@ class UserPlanManager(base.Manager):
         """
         Get the details of a user plan
         """
-        
         path = '/v1/plan/mapping/' + user_plan_mapping_id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
             return None
     
-    def create(self):
+    def create(self, abc):
         """
         Create a new user plan
         """
+        print('INSIDE PLAN MAPPING CREATE')
+        print(abc)
+        print('AFTER ABC')
+        path = '/v1/plan/mapping'
+        
+        
         
     def delete(self):    
         """
