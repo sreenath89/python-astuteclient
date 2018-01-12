@@ -29,7 +29,7 @@ class PlanManager(base.Manager):
         except IndexError:
             return None
     
-    def create(self, plan_name = None, plan_code = None, rate = None, setup_fee = None, service_type_id = None, billing_type = None, ref_id = None, ram = None, cpu = None, storage = None):
+    def create(self, plan_name = None, plan_code = None, rate = None, setup_fee = None, service_type_id = None, billing_type = None, ref_id, ram = None, cpu = None, storage = None):
         """
         Create a New Plan
         """

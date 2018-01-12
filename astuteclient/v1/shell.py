@@ -232,7 +232,7 @@ def do_plan_create(cc, args):
     if getattr(args, 'billing_type', None):
         filter_options['billing_type'] = args.billing_type
         
-    if getattr(args, 'ref_id', None):
+    if getattr(args, 'ref_id', ""):
         filter_options['ref_id'] = args.ref_id
         
     if getattr(args, 'ram', None):
