@@ -455,14 +455,12 @@ def do_user_billing_type_get(cc, args):
     '--name', 
     default = "",
     metavar='<Name>', 
-    action=NotEmptyAction,
     help='Name- extra fields')
 
 @utils.arg(
     '--id', 
     default= "",
     metavar='<Id>', 
-    action=NotEmptyAction,
     help='Id-extra fields')
 
 def do_user_billing_type_create(cc, args):
