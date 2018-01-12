@@ -29,9 +29,26 @@ class PlanManager(base.Manager):
         except IndexError:
             return None
     
-    def create(self):
+    def create(self, plan_name = None, plan_code = None, rate = None, setup_fee = None, service_type = None, billing_type = None, ref_id = None, ram = None, cpu = None, storage = None):
         """
+        Create a New Plan
         """
+        path = '/v1/plan'
+        body = {
+            "name": plan_name,
+            "code": plan_code,
+            "rate": rate,
+            "setup_fee": setup_fee,
+            "service_type": service_type,
+            "billing_type": billing_type,
+            "ref_id": ref_id,
+            "attrs":{
+                "ram": ram,
+                "cpu": cpu,
+                "storage": storage
+            }
+        }
+        return self._create(path, body)
     
     def delete(self):
         """

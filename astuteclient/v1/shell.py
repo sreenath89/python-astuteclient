@@ -144,9 +144,111 @@ def do_plan_get(cc, args):
         print('before printing')
         utils.print_dict(data, wrap=72)
     
+@utils.arg(
+    '--plan_name', 
+    metavar='<Plan Name>', 
+    action=NotEmptyAction,
+    help='Name of the new plan')
+
+@utils.arg(
+    '--plan_code', 
+    metavar='<Plan Code>', 
+    action=NotEmptyAction,
+    help='Code for the Plan')
+
+@utils.arg(
+    '--rate', 
+    metavar='<Rate>', 
+    action=NotEmptyAction,
+    help='Rate for the new plan')
+
+@utils.arg(
+    '--setup_fee', 
+    metavar='<Setup Fee>', 
+    action=NotEmptyAction,
+    help='Setup Fee for the new plan')
+
+@utils.arg(
+    '--service_type', 
+    metavar='<Service Type>', 
+    action=NotEmptyAction,
+    help='Service Type of the new plan')
+
+@utils.arg(
+    '--billing_type', 
+    metavar='<Billing Type>', 
+    action=NotEmptyAction,
+    help='Billing Type of the new plan')
+
+@utils.arg(
+    '--ref_id', 
+    metavar='<Reference Id>', 
+    action=NotEmptyAction,
+    help='Ref Id of the new plan')
+
+@utils.arg(
+    '--ram', 
+    metavar='<Ram>', 
+    action=NotEmptyAction,
+    help='Ram value of the new plan')
+
+@utils.arg(
+    '--cpu', 
+    metavar='<Cpu>', 
+    action=NotEmptyAction,
+    help='Cpu value of the new plan')
+
+@utils.arg(
+    '--storage', 
+    metavar='<Storage>', 
+    action=NotEmptyAction,
+    help='Storage value of the new plan')
+  
 def do_plan_create(cc, args):
     '''Create a new plan'''
-    print('Create a new plan')
+    '''plan_name = None, plan_code = None, rate = None, setup_fee = None, service_type = None, billing_type = None, ref_id = None, ram = None, cpu = None, storage = None)'''
+    
+    #Initializing    
+    filter_options = {}
+    
+    if getattr(args, 'plan_name', None):
+        filter_options['plan_name'] = args.plan_name
+        
+    if getattr(args, 'plan_code', None):
+        filter_options['plan_code'] = args.plan_code
+        
+    if getattr(args, 'rate', None):
+        filter_options['rate'] = args.rate
+        
+    if getattr(args, 'setup_fee', None):
+        filter_options['setup_fee'] = args.setup_fee
+        
+    if getattr(args, 'service_type', None):
+        filter_options['service_type'] = args.service_type
+        
+    if getattr(args, 'billing_type', None):
+        filter_options['billing_type'] = args.billing_type
+        
+    if getattr(args, 'ref_id', None):
+        filter_options['ref_id'] = args.ref_id
+        
+    if getattr(args, 'ram', None):
+        filter_options['ram'] = args.ram
+        
+    if getattr(args, 'cpu', None):
+        filter_options['cpu'] = args.cpu
+        
+    if getattr(args, 'storage', None):
+        filter_options['storage'] = args.storage
+    
+    try:
+        print(filter_options)
+        print('##########')
+        create_plan = cc.plans.create(**filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_plan_list(cc, args)
     
 def do_plan_delete(cc, args):
     '''Delete a plan'''
