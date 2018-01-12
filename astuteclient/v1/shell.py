@@ -170,14 +170,14 @@ def do_plan_get(cc, args):
 
 @utils.arg(
     '--service_type', 
-    metavar='<Service Type>', 
-    action=NotEmptyAction,
+    type = int,
+    metavar='<Service Type>',
     help='Service Type of the new plan')
 
 @utils.arg(
     '--billing_type', 
     metavar='<Billing Type>', 
-    action=NotEmptyAction,
+    type = int,
     help='Billing Type of the new plan')
 
 @utils.arg(
@@ -206,8 +206,7 @@ def do_plan_get(cc, args):
   
 def do_plan_create(cc, args):
     '''Create a new plan'''
-    '''plan_name = None, plan_code = None, rate = None, setup_fee = None, service_type = None, billing_type = None, ref_id = None, ram = None, cpu = None, storage = None)'''
-    
+        
     #Initializing    
     filter_options = {}
     
@@ -223,7 +222,7 @@ def do_plan_create(cc, args):
     if getattr(args, 'setup_fee', None):
         filter_options['setup_fee'] = args.setup_fee
         
-    if getattr(args, 'service_type', None):
+    if getattr(args, 'service_type', ""):
         filter_options['service_type'] = args.service_type
         
     if getattr(args, 'billing_type', None):
