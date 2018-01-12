@@ -362,7 +362,7 @@ def do_user_plan_get(cc, args):
     help='ID of the User for whom the Plan is to be mapped')
 
 @utils.arg(
-    '--contact_period', 
+    '--contract_period', 
     metavar='<Contract Period>', 
     action=NotEmptyAction,
     help='Contract Period for the Plan')
@@ -405,6 +405,7 @@ def do_user_plan_create(cc, args):
         print(e)
     else:
         do_user_plans_list(cc, args)
+        
 #################End of User Plan Mapping section#########
 
 def do_user_billing_type_list(cc, args):
