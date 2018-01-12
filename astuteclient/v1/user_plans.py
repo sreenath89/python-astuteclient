@@ -36,7 +36,17 @@ class UserPlanManager(base.Manager):
         print('INSIDE PLAN MAPPING CREATE')
         path = '/v1/plan/mapping'
         #body = {"user": user,"contract_period": contract_period,"plans":{plan_id:quantity}}
-        body = {"user": user,"contract_period": contract_period,"plans":{1:1}}
+        #body = {"user": user,"contract_period": contract_period,"plans":{1:1}}
+        
+        body = {
+            "user": user,
+            "contract_period": contract_period,
+            "plans": {
+                plan_id: quantity
+            }
+        }
+        
+        print(body)
         return self._create(path, body)
         
     def delete(self):    
