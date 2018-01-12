@@ -177,7 +177,7 @@ def do_plan_get(cc, args):
 @utils.arg(
     '--ref_id', 
     metavar='<Reference Id>', 
-    action=NotEmptyAction,
+    default='',
     help='Ref Id of the new plan')
 
 @utils.arg(
