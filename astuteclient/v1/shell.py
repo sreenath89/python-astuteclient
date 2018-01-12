@@ -371,14 +371,12 @@ def do_user_plan_get(cc, args):
     '--plan_id', 
     type= int,
     metavar='<Plan ID>', 
-    action=NotEmptyAction,
     help='Plan to be assigned to the user')
 
 @utils.arg(
     '--quantity', 
     type= int,
     metavar='<Quantity>', 
-    action=NotEmptyAction,
     help='Quantity')
 
 def do_user_plan_create(cc, args):
