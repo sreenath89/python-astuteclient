@@ -34,9 +34,9 @@ class UserPlanManager(base.Manager):
         Create a new user plan
         """
         print('INSIDE PLAN MAPPING CREATE')
-        print('AFTER ABC')
         path = '/v1/plan/mapping'
-        body = {"user": user,"contract_period": contract_period,"plans":{plan_id:quantity}}
+        #body = {"user": user,"contract_period": contract_period,"plans":{plan_id:quantity}}
+        body = {"user": user,"contract_period": contract_period,"plans":{1:1}}
         return self._create(path, body)
         
     def delete(self):    
