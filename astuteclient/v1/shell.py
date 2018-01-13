@@ -398,6 +398,7 @@ def do_discount_get(cc, args):
 @utils.arg(
     '--discount_expiry_date', 
     action=NotEmptyAction,
+    default = None,
     metavar='<Discount Expiry Date>', 
     help='Expiry date for the discount')
 
@@ -408,8 +409,8 @@ def do_discount_get(cc, args):
     help='Discount Amount')
 
 @utils.arg(
-    '--notes', 
-    action=NotEmptyAction,
+    '--notes',
+    default = "",
     metavar='<Notes>', 
     help='Notes corresponding to the discount')
 
