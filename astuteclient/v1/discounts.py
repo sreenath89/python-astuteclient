@@ -26,7 +26,7 @@ class DiscountManager(base.Manager):
         except IndexError:
             return None
     
-    def create(self, discount_name, discount_code, discount_type_id,  discount_expiry_date=None, discount_amount, notes=None):
+    def create(self, discount_name=None, discount_code=None, discount_type_id=None,  discount_expiry_date=None, discount_amount=None, notes=None):
         """
         Create a new Discount
         """
@@ -43,5 +43,6 @@ class DiscountManager(base.Manager):
     
     def delete(self):
         """
+        Delete a Discount
         """
         
