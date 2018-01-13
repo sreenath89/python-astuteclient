@@ -429,13 +429,13 @@ def do_discount_create(cc, args):
     if getattr(args, 'discount_type_id', None):
         filter_options['discount_type_id'] = args.discount_type_id
         
-    if getattr(args, 'discount_expiry_date', None):
+    if getattr(args, 'discount_expiry_date', ""):
         filter_options['discount_expiry_date'] = args.discount_expiry_date
 
     if getattr(args, 'discount_amount', None):
         filter_options['discount_amount'] = args.discount_amount
         
-    if getattr(args, 'notes', None):
+    if getattr(args, 'notes', ""):
         filter_options['notes'] = args.notes
     
     try:
