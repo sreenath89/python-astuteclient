@@ -30,7 +30,7 @@ class DiscountManager(base.Manager):
         """
         Create a new Discount
         """
-        path = '/v1/discount'
+        path = '/v1/discount/'
         body = {
             "name": discount_name, 
             "code" : discount_code,
