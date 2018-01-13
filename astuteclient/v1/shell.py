@@ -385,31 +385,31 @@ def do_discount_get(cc, args):
 
 @utils.arg(
     '--discount_code', 
-    type= int,
+    action=NotEmptyAction,
     metavar='<Discount Code>', 
     help='Unique Code for the discount')
 
 @utils.arg(
     '--discount_type_id', 
-    type= int,
+    action=NotEmptyAction,
     metavar='<Type of Discount>', 
     help='Type of Discount')
 
 @utils.arg(
     '--discount_expiry_date', 
-    type= int,
+    action=NotEmptyAction,
     metavar='<Discount Expiry Date>', 
     help='Expiry date for the discount')
 
 @utils.arg(
     '--discount_amount', 
-    type= int,
+    action=NotEmptyAction,
     metavar='<Discount Amount>', 
     help='Discount Amount')
 
 @utils.arg(
     '--notes', 
-    type= int,
+    action=NotEmptyAction,
     metavar='<Notes>', 
     help='Notes corresponding to the discount')
 
