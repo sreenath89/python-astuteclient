@@ -26,7 +26,7 @@ class DiscountTypeManager(base.Manager):
         except IndexError:
             return None
         
-    def create(self, status, code, id, name):
+    def create(self, status, code, name):
         """
         Create a new Discount Type
         """
@@ -34,7 +34,6 @@ class DiscountTypeManager(base.Manager):
         body = {
             "status": status,
             "code": code,
-            "id": id,
             "name": name 
         }
         return self._create(path, body)
