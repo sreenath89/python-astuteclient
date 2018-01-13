@@ -450,6 +450,21 @@ def do_discount_create(cc, args):
 def do_discount_update(cc, args):
     '''Update the Discount details'''
     print('Update discount details')
+  
+@utils.arg(
+    '--discount_id', 
+    metavar='<Discount Id>', 
+    help='Id for the Discount')
+  
+def do_discount_delete(cc, args):
+    '''Delete a discount'''
+    try:
+        discount = cc.discounts.delete(args.discount_id)
+    except Exception, e:
+        print(e)
+        print('Error: Unable to delete the discount!')
+    else:
+        do_discount_list(cc, args)
     
 #################End of Discounts section#################
 def do_discount_mappings_list(cc, args):
