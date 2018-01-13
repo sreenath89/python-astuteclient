@@ -329,10 +329,34 @@ def do_discount_type_get(cc, args):
         print('before printing')
         utils.print_dict(data, wrap=72)
 
+@utils.arg(
+    '--status', 
+    metavar='<Discount Type Status>', 
+    action=NotEmptyAction,
+    help='Status of Discount Type')
+
+@utils.arg(
+    '--code', 
+    metavar='<Discount Code>', 
+    action=NotEmptyAction,
+    help='Discount Type Code')
+
+@utils.arg(
+    '--name', 
+    metavar='<Discount Name>', 
+    action=NotEmptyAction,
+    help='Name of the Discount Type')
+
 def do_discount_type_create(cc, args):
     '''Create a new discount type'''
     print('Create new discount type')
-
+    try:
+        discount_type_create = cc.discount_types.create(args.status, args.code, args.name)
+    except Exception, e:
+        print(e)
+    else:
+        do_discount_type_list(cc, args)
+    
 def do_discount_type_update(cc, args):
     '''Update the details of a discount type'''
     print('Update discount type details')

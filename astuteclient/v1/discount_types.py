@@ -26,9 +26,18 @@ class DiscountTypeManager(base.Manager):
         except IndexError:
             return None
         
-    def create(self):
+    def create(self, status, code, id, name):
         """
+        Create a new Discount Type
         """
+        path = "/v1/discount/type"
+        body = {
+            "status": status,
+            "code": code,
+            "id": id,
+            "name": name 
+        }
+        return self._create(path, body)
         
         
     def delete(self):
