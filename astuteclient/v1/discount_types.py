@@ -25,20 +25,3 @@ class DiscountTypeManager(base.Manager):
             return self._list(path, expect_single=True)[0]
         except IndexError:
             return None
-        
-    def create(self, status, code, name):
-        """
-        Create a new Discount Type
-        """
-        path = "/v1/discount/type"
-        body = {
-            "status": status,
-            "code": code,
-            "name": name 
-        }
-        return self._create(path, body)
-        
-        
-    def delete(self):
-        """
-        """

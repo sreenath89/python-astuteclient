@@ -346,20 +346,6 @@ def do_discount_type_get(cc, args):
     metavar='<Discount Name>', 
     action=NotEmptyAction,
     help='Name of the Discount Type')
-
-def do_discount_type_create(cc, args):
-    '''Create a new discount type'''
-    print('Create new discount type')
-    try:
-        discount_type_create = cc.discount_types.create(args.status, args.code, args.name)
-    except Exception, e:
-        print(e)
-    else:
-        do_discount_type_list(cc, args)
-    
-def do_discount_type_update(cc, args):
-    '''Update the details of a discount type'''
-    print('Update discount type details')
     
 #################End of Discount Types Section#################
 def do_discount_list(cc, args):
@@ -391,9 +377,74 @@ def do_discount_get(cc, args):
         print('before printing')
         utils.print_dict(data, wrap=72)
 
+
+@utils.arg(
+    '--discount_name', 
+    metavar='<Discount Name>', 
+    help='Name for the Discount')
+
+@utils.arg(
+    '--discount_code', 
+    type= int,
+    metavar='<Discount Code>', 
+    help='Unique Code for the discount')
+
+@utils.arg(
+    '--discount_type_id', 
+    type= int,
+    metavar='<Type of Discount>', 
+    help='Type of Discount')
+
+@utils.arg(
+    '--discount_expiry_date', 
+    type= int,
+    metavar='<Discount Expiry Date>', 
+    help='Expiry date for the discount')
+
+@utils.arg(
+    '--discount_amount', 
+    type= int,
+    metavar='<Discount Amount>', 
+    help='Discount Amount')
+
+@utils.arg(
+    '--notes', 
+    type= int,
+    metavar='<Notes>', 
+    help='Notes corresponding to the discount')
+
 def do_discount_create(cc, args):
     '''Create a new discount'''
-    print('Create discount')
+
+    #Initializing    
+    filter_options = {}
+    
+    if getattr(args, 'discount_name', None):
+        filter_options['discount_name'] = args.discount_name
+        
+    if getattr(args, 'discount_code', None):
+        filter_options['discount_code'] = args.discount_code
+        
+    if getattr(args, 'discount_type_id', None):
+        filter_options['discount_type_id'] = args.discount_type_id
+        
+    if getattr(args, 'discount_expiry_date', None):
+        filter_options['discount_expiry_date'] = args.discount_expiry_date
+
+    if getattr(args, 'discount_amount', None):
+        filter_options['discount_amount'] = args.discount_amount
+        
+    if getattr(args, 'notes', None):
+        filter_options['notes'] = args.notes
+    
+    try:
+        print(filter_options)
+        print('##########')
+        user_plan_mapping = cc.discounts.create(**filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_discount_list(cc, args)
 
 def do_discount_update(cc, args):
     '''Update the Discount details'''

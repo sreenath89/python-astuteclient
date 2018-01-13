@@ -26,9 +26,20 @@ class DiscountManager(base.Manager):
         except IndexError:
             return None
     
-    def create(self):
+    def create(self, discount_name, discount_code, discount_type_id,  discount_expiry_date, discount_amount, notes):
         """
+        Create a new Discount
         """
+        path = '/v1/discount'
+        body = {
+            "name": discount_name, 
+            "code" : discount_code,
+            "discount_type_id" : discount_type_id, 
+            "expiration_date" : discount_expiry_date,
+            "amt" : discount_amount, 
+            "notes" : notes
+        }
+        return self._create(path, body)
     
     def delete(self):
         """
