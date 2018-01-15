@@ -46,5 +46,16 @@ class UserPlanManager(base.Manager):
     def delete(self):    
         """
         Delete a user plan
-        """    
+        """
+        path = '/v1/plan/mapping'
+        try:
+            return self._delete(path)
+        except Exception, e:
+            print(e)
+            
+    def update(self):
+        """
+        Update a User Plan
+        """
+        
     

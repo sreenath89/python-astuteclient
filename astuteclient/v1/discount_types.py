@@ -25,3 +25,4 @@ class DiscountTypeManager(base.Manager):
             return self._list(path, expect_single=True)[0]
         except IndexError:
             return None
+    

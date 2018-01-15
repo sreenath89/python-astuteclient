@@ -29,6 +29,28 @@ class InvoiceManager(base.Manager):
     def create(self):
         """
         """
+        path = "/v1/invoice"
+        body = {}
+        try:
+            return self._create(path, body)
+        except Exception, e:
+            print(e)
+            
     def delete(self):
         """
         """
+        path = "/v1/invoice/" + invoice_id
+        try:
+            return self._delete(path)
+        except Exception, e:
+            print(e)
+    
+    def update(self):
+        """
+        """
+        path = "/v1/invoice/" + invoice_id
+        body = {}
+        try:
+            return self._update(invoice_id)
+        except Exception, e:
+            print(e)

@@ -47,13 +47,6 @@ class UserBillingTypeManager(base.Manager):
                 "id": id
             }
         }
-         
-        ''' 
-        body = {
-            "billing_type": billing_type_id,
-            "user": user
-        }
-        '''
         return self._create(path, body)
         
     
@@ -61,5 +54,10 @@ class UserBillingTypeManager(base.Manager):
         """
         Delete a user-billing type mapping
         """
+        path = "/v1/billing/mapping" + mapping_id
+        try:
+            return self._delete(path)
+        except Exception, e:
+            print(e)
         
         

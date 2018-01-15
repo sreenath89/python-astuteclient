@@ -1,4 +1,5 @@
 from astuteclient.common import base
+from lxml import _elementpath
 
 class ServiceType(base.Resource):
     """
@@ -29,10 +30,23 @@ class ServiceTypeManager(base.Manager):
         
     def create(self):
         """
+        Create a new Service Type
         """
+        path = "/v1/service_types"
+        body = {}
+        try:
+            return self._create(path, body)
+        except Exception, e:
+            print(e)
     
     def delete(self):
         """
+        Delete a Service Type
         """
+        path = "/v1/service_types/" + service_type_id
+        try:
+            return self._delete(path)
+        except Exception, e:
+            print(e)
     
         

@@ -33,11 +33,33 @@ class DiscountMappingManager(base.Manager):
         """
         Create a discount mapping
         """
+        path = "/v1/discount/mapping"
+        body = {}
+        try:
+            return self._create(path, body)
+        except Exception, e:
+            print(e)
+    
+    def update(self):
+        """
+        Update a discount mapping
+        """
+        path = "/v1/discount/mapping"
+        body = {}
+        try:
+            return self._update(path, body)
+        except Exception ,e:
+            print(e)
+        
     def delete(self):
         """
         Delete a discount mapping
         """
-        
+        path = "/v1/discount/mapping/" + discount_mapping_id
+        try:
+            return self._delete(path, body)
+        except Exception, e:
+            print(e)        
         
         
         

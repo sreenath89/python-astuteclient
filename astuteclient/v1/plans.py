@@ -54,7 +54,23 @@ class PlanManager(base.Manager):
     
     def delete(self):
         """
+        Delete a Plan
         """
-        
+        path = '/v1/plan/' + plan_id
+        try:
+            return self._delete(path)
+        except Exception, e:
+            print(e)
+    
+    def update(self):
+        """
+        Update a Plan
+        """
+        path = "/v1/plan"
+        try:
+            return self._update(path, body)
+        except Exception, e:
+            print(e)
+    
         
     

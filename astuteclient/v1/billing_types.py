@@ -16,9 +16,9 @@ class BillingTypeManager(base.Manager):
         """
         List all the Billing Types
         """
-        url = '/v1/billing/type'
+        path = '/v1/billing/type'
         qparams = {}
-        return self._list(url, "")
+        return self._list(path, "")
 
     
     def get(self, id):
@@ -37,13 +37,29 @@ class BillingTypeManager(base.Manager):
         """
         Create a New Billing Type
         """
+        path = "/v/billing/type"
         body = {"name": name, "code":code}
-        return self._create("/v1/billing/type", body)
+        return self._create(path, body)
     
-    def delete(self, billing_type):
+    def update(self, name, code):
+        """
+        Update a Billing Type
+        """
+        path = "/v1/billing/type"
+        try:
+            return self._update(path, body)
+        except Exception, e:
+            print(e)
+    
+    def delete(self, billing_type_id):
         """
         Delete a billing type
         """
-        return self._delete("/v1/billing/type/%s", base.getid(billing_type))
+        path = "/v1/billing/type" + billing_type_id
+        try:
+            return self._delete(path)
+        except Exception, e:
+            print(e)
+            
 
  

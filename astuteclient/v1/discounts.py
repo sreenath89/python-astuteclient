@@ -41,12 +41,27 @@ class DiscountManager(base.Manager):
         }
         return self._create(path, body)
     
+    def update(self):
+        """
+        Update a Discount
+        """
+        path = "/v1/discount"
+        body = {}
+        try:
+            return self._update(path, body)
+        except Exception, e:
+            print(e)
+    
     def delete(self, discount_id = None):
         """
         Delete a Discount
         """
         path = '/v1/discount/' + discount_id
-        return self._delete(path)
+        try:
+            return self._delete(path)
+        except Exception, e:
+            print(e)
+            
     
     
         

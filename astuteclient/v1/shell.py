@@ -105,13 +105,50 @@ def do_billing_type_create(cc, args):
     else:
         do_billing_type_list(cc, args)
     
+@utils.arg(
+    '--billing_type_id', 
+    metavar='<ID of Billing Type>', 
+    type=int,
+    action=NotEmptyAction,
+    help='ID of the billing type which is to be updated.')
+
+@utils.arg(
+    '--billing_type_name', 
+    metavar='<Billing Type Name>', 
+    action=NotEmptyAction,
+    help='Name of the Billing Type')
+
+@utils.arg(
+    '--billing_type_code', 
+    metavar='<Billing Type Code>', 
+    action=NotEmptyAction,
+    help='Code of the Billing Type')
+
 def do_billing_type_update(cc, args):
     '''Update the details of a billing type'''
+    try:
+        bt_update = cc.billing_types.update(args.billing_type_id, args.billing_type_name, args.billing_type_code)
+    except Exception, e:
+        print(e)
+    else:
+        do_billing_type_get(cc, args)
+
+@utils.arg(
+    '--billing_type_id', 
+    metavar='<ID of Billing Type>', 
+    type=int,
+    action=NotEmptyAction,
+    help='ID of the billing type which is to be deleted.')
 
 def do_billing_type_delete(cc, args):
     '''Delete a billing type'''
+    try:
+        cc.billing_types.delete(args.billing_type_id)
+    except Exception, e:
+        print e
+    else:
+        do_billing_type_list(cc, args)
     
-
 def do_plan_list(cc, args):
     '''List all the available plans'''
     try:
@@ -257,13 +294,93 @@ def do_plan_create(cc, args):
     else:
         do_plan_list(cc, args)
     
+@utils.arg(
+    '--plan_id', 
+    metavar='<Id of the Plan>', 
+    action=NotEmptyAction,
+    help='Id of the Plan.')
+
 def do_plan_delete(cc, args):
     '''Delete a plan'''
     print('Delete plan')
+    try:
+        cc.plans.delete(args.plan_id)
+    except Exception, e:
+        print(e)
+
+@utils.arg(
+    '--plan_id', 
+    metavar='<Id of the Plan>', 
+    action=NotEmptyAction,
+    help='Id of the Plan.')
+
+@utils.arg(
+    '--plan_name', 
+    metavar='<Plan Name>', 
+    action=NotEmptyAction,
+    help='Name of the new plan')
+
+@utils.arg(
+    '--plan_code', 
+    metavar='<Plan Code>', 
+    action=NotEmptyAction,
+    help='Code for the Plan')
+
+@utils.arg(
+    '--rate', 
+    metavar='<Rate>', 
+    action=NotEmptyAction,
+    help='Rate for the new plan')
+
+@utils.arg(
+    '--setup_fee', 
+    metavar='<Setup Fee>', 
+    action=NotEmptyAction,
+    help='Setup Fee for the new plan')
+
+@utils.arg(
+    '--billing_type', 
+    metavar='<Billing Type>', 
+    type = int,
+    help='Billing Type of the new plan')
+
+@utils.arg(
+    '--ref_id', 
+    metavar='<Reference Id>', 
+    default=' ',
+    help='Ref Id of the new plan')
+
+@utils.arg(
+    '--ram', 
+    metavar='<Ram>', 
+    action=NotEmptyAction,
+    help='Ram value of the new plan')
+
+@utils.arg(
+    '--cpu', 
+    metavar='<Cpu>', 
+    action=NotEmptyAction,
+    help='Cpu value of the new plan')
+
+@utils.arg(
+    '--storage', 
+    metavar='<Storage>', 
+    action=NotEmptyAction,
+    help='Storage value of the new plan')
+
+@utils.arg(
+    '--service_type_id', 
+    metavar='<Service Type ID>', 
+    action=NotEmptyAction,
+    help='Service Type for the new plan')
 
 def do_plan_update(cc, args):
     '''Update plan details'''
     print('Update Plan details')
+    try:
+        cc.plans.update(**filter_options)
+    except Exception, e:
+        print(e)
     
 #################End of Plan section#################
 def do_invoice_list(cc, args):
@@ -447,9 +564,79 @@ def do_discount_create(cc, args):
     else:
         do_discount_list(cc, args)
 
+@utils.arg(
+    '--discount_id', 
+    metavar='<ID of Discount>', 
+    action=NotEmptyAction,
+    help='ID of the Discount whose details are to be updated.')
+
+@utils.arg(
+    '--discount_name', 
+    metavar='<Discount Name>', 
+    help='Name for the Discount')
+
+@utils.arg(
+    '--discount_code', 
+    action=NotEmptyAction,
+    metavar='<Discount Code>', 
+    help='Unique Code for the discount')
+
+@utils.arg(
+    '--discount_type_id', 
+    action=NotEmptyAction,
+    metavar='<Type of Discount>', 
+    help='Type of Discount')
+
+@utils.arg(
+    '--discount_expiry_date', 
+    action=NotEmptyAction,
+    default = None,
+    metavar='<Discount Expiry Date>', 
+    help='Expiry date for the discount')
+
+@utils.arg(
+    '--discount_amount', 
+    action=NotEmptyAction,
+    metavar='<Discount Amount>', 
+    help='Discount Amount')
+
+@utils.arg(
+    '--notes',
+    default = "",
+    metavar='<Notes>', 
+    help='Notes corresponding to the discount')
+
 def do_discount_update(cc, args):
     '''Update the Discount details'''
-    print('Update discount details')
+    
+    #Initializing    
+    filter_options = {}
+    
+    if getattr(args, 'discount_id', None):
+        filter_options['discount_id'] = args.discount_id
+        
+    if getattr(args, 'discount_name', None):
+        filter_options['discount_name'] = args.discount_name
+        
+    if getattr(args, 'discount_code', None):
+        filter_options['discount_code'] = args.discount_code
+        
+    if getattr(args, 'discount_type_id', None):
+        filter_options['discount_type_id'] = args.discount_type_id
+        
+    if getattr(args, 'discount_expiry_date', ""):
+        filter_options['discount_expiry_date'] = args.discount_expiry_date
+
+    if getattr(args, 'discount_amount', None):
+        filter_options['discount_amount'] = args.discount_amount
+        
+    if getattr(args, 'notes', ""):
+        filter_options['notes'] = args.notes
+        
+    try:
+        cc.discounts.update(**filter_options)
+    except Exception, e:
+        print(e)
   
 @utils.arg(
     '--discount_id', 
@@ -478,8 +665,12 @@ def do_discount_mappings_list(cc, args):
         fields = ['discount_type_id', 'code', 'name', 'user', 'apply_type', 'user_plan', 'discount_id' ,'expiration_date', 'amt']
         utils.print_list(discount_mapping, fields, field_labels, sortby=0)
 
-@utils.arg('--discount_mapping_id', metavar='<ID of Discount Mapping>', action=NotEmptyAction,
-           help='ID of the Discount Mapping whose details are to be shown.') 
+@utils.arg(
+    '--discount_mapping_id', 
+    metavar='<ID of Discount Mapping>', 
+    action=NotEmptyAction,
+    help='ID of the Discount Mapping whose details are to be shown.')
+ 
 def do_discount_mapping_get(cc, args):
     '''Get the details of an individual Discount Mapping'''
     try:
@@ -493,13 +684,207 @@ def do_discount_mapping_get(cc, args):
         data = dict((f, getattr(discount_mapping, f, '')) for f in fields)
         utils.print_dict(data, wrap=72) 
 
+@utils.arg(
+    '--discount_type_id', 
+    metavar='<ID of Discount Mapping>', 
+    type=int,
+    help='ID of the Discount Mapping whose details are to be shown.')
+
+@utils.arg(
+    '--discount_code', 
+    metavar='<Discount Code>', 
+    action=NotEmptyAction,
+    help='Discount Code')
+
+@utils.arg(
+    '--discount_name', 
+    metavar='<Discount Name>', 
+    action=NotEmptyAction,
+    help='Name of the Discount')
+
+@utils.arg(
+    '--user', 
+    metavar='<Id of the user>', 
+    action=NotEmptyAction,
+    help='ID of User for whom the discount is to be applied.')
+
+@utils.arg(
+    '--apply_type', 
+    metavar='<Discount Apply Type>', 
+    action=NotEmptyAction,
+    help='Discount Apply Time')
+
+@utils.arg(
+    '--discount_expiration_date', 
+    metavar='<Expiration Date>', 
+    action=NotEmptyAction,
+    help='Expiration date of Discount Mapping')
+
+@utils.arg(
+    '--discount_expiration_date', 
+    metavar='<Expiration Date>', 
+    action=NotEmptyAction,
+    help='Expiration date of Discount Mapping')
+
+@utils.arg(
+    '--map_object', 
+    metavar='<Map Object>', 
+    action=NotEmptyAction,
+    help='Map Object corresponding to Discount Mapping')
+
+@utils.arg(
+    '--amt', 
+    metavar='<Amount>', 
+    action=NotEmptyAction,
+    help='Amount')
+
 def do_discount_mapping_create(cc, args):
     '''Create a new discount mapping'''
-    print('Create a new discount mapping')
+    
+    #Initializing    
+    filter_options = {}
+    
+    if getattr(args, 'discount_type_id', None):
+        filter_options['discount_type_id'] = args.discount_type_id
+        
+    if getattr(args, 'discount_name', None):
+        filter_options['discount_name'] = args.discount_name
+        
+    if getattr(args, 'discount_code', None):
+        filter_options['discount_code'] = args.discount_code
+        
+    if getattr(args, 'user', None):
+        filter_options['user'] = args.user
+    
+    if getattr(args, 'apply_type', None):
+        filter_options['apply_type'] = args.apply_type
+    
+    if getattr(args, 'discount_expiration_date', None):
+        filter_options['discount_expiration_date'] = args.discount_expiration_date
+    
+    if getattr(args, 'map_object', None):
+        filter_options['map_object'] = args.map_object
+    
+    if getattr(args, 'amt', None):
+        filter_options['amt'] = args.amt
+
+    try:
+        cc.discount_mappings.create(**filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_discount_mappings_list(cc, args)
+
+@utils.arg(
+    '--discount_mapping_id', 
+    metavar='<ID of Discount Mapping>', 
+    type=int,
+    help='ID of the Discount Mapping whose details are to be updated.')
+
+@utils.arg(
+    '--discount_type_id', 
+    metavar='<ID of Discount Mapping>', 
+    type=int,
+    help='ID of the Discount Mapping whose details are to be shown.')
+
+@utils.arg(
+    '--discount_code', 
+    metavar='<Discount Code>', 
+    action=NotEmptyAction,
+    help='Discount Code')
+
+@utils.arg(
+    '--discount_name', 
+    metavar='<Discount Name>', 
+    action=NotEmptyAction,
+    help='Name of the Discount')
+
+@utils.arg(
+    '--user', 
+    metavar='<Id of the user>', 
+    action=NotEmptyAction,
+    help='ID of User for whom the discount is to be applied.')
+
+@utils.arg(
+    '--apply_type', 
+    metavar='<Discount Apply Type>', 
+    action=NotEmptyAction,
+    help='Discount Apply Time')
+
+@utils.arg(
+    '--discount_expiration_date', 
+    metavar='<Expiration Date>', 
+    action=NotEmptyAction,
+    help='Expiration date of Discount Mapping')
+
+@utils.arg(
+    '--discount_expiration_date', 
+    metavar='<Expiration Date>', 
+    action=NotEmptyAction,
+    help='Expiration date of Discount Mapping')
+
+@utils.arg(
+    '--map_object', 
+    metavar='<Map Object>', 
+    action=NotEmptyAction,
+    help='Map Object corresponding to Discount Mapping')
+
+@utils.arg(
+    '--amt', 
+    metavar='<Amount>', 
+    action=NotEmptyAction,
+    help='Amount')
 
 def do_discount_mapping_update(cc, args):
     '''Update an existing Discount Mapping'''
-    print('Update an existing Discount Mapping')
+    #Initializing    
+    filter_options = {}
+    
+    if getattr(args, 'discount_mapping_id', None):
+        filter_options['discount_mapping_id'] = args.discount_mapping_id
+        
+    if getattr(args, 'discount_type_id', None):
+        filter_options['discount_type_id'] = args.discount_type_id
+        
+    if getattr(args, 'discount_name', None):
+        filter_options['discount_name'] = args.discount_name
+        
+    if getattr(args, 'discount_code', None):
+        filter_options['discount_code'] = args.discount_code
+        
+    if getattr(args, 'user', None):
+        filter_options['user'] = args.user
+    
+    if getattr(args, 'apply_type', None):
+        filter_options['apply_type'] = args.apply_type
+    
+    if getattr(args, 'discount_expiration_date', None):
+        filter_options['discount_expiration_date'] = args.discount_expiration_date
+    
+    if getattr(args, 'map_object', None):
+        filter_options['map_object'] = args.map_object
+    
+    if getattr(args, 'amt', None):
+        filter_options['amt'] = args.amt
+
+    try:
+        cc.discount_mappings.update(**filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_discount_mappings_list(cc, args)
+    
+@utils.arg(
+    '--discount_mapping_id', 
+    metavar='<Discount Mapping Id>', 
+    help='Id of the discount mapping which is to be deleted')
+
+def do_discount_mapping_delete(cc, args):
+    '''Delete a Discount Mapping'''
+    try:
+        cc.discount_mappings.delete(args.discount_mapping_id)
+    except Exception, e:
+        print(e)
     
 #################End of Discount Mapping section##########
 def do_service_types_list(cc, args):
@@ -681,7 +1066,6 @@ def do_user_billing_type_create(cc, args):
     if getattr(args, 'id', ""):
         filter_options['id'] = args.id
 
-        
     try:
         print(filter_options)
         print('##########')
@@ -691,3 +1075,4 @@ def do_user_billing_type_create(cc, args):
         print(e)
     
 #################End of User Billing Type Mapping section#
+
