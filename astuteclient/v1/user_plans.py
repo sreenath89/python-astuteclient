@@ -43,11 +43,11 @@ class UserPlanManager(base.Manager):
         }
         return self._create(path, body)
         
-    def delete(self):    
+    def delete(self, mapping_id):    
         """
         Delete a user plan
         """
-        path = '/v1/plan/mapping'
+        path = '/v1/plan/mapping/' + mapping_id
         try:
             return self._delete(path)
         except Exception, e:

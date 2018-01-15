@@ -54,7 +54,7 @@ class UserBillingTypeManager(base.Manager):
         """
         Delete a user-billing type mapping
         """
-        path = "/v1/billing/mapping" + mapping_id
+        path = "/v1/billing/mapping/" + mapping_id
         try:
             return self._delete(path)
         except Exception, e:

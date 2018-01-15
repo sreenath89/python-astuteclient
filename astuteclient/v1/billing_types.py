@@ -55,7 +55,7 @@ class BillingTypeManager(base.Manager):
         """
         Delete a billing type
         """
-        path = "/v1/billing/type" + billing_type_id
+        path = "/v1/billing/type/" + billing_type_id
         try:
             return self._delete(path)
         except Exception, e:
