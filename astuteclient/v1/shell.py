@@ -721,12 +721,6 @@ def do_discount_mapping_get(cc, args):
     help='Expiration date of Discount Mapping')
 
 @utils.arg(
-    '--discount_expiration_date', 
-    metavar='<Expiration Date>', 
-    action=NotEmptyAction,
-    help='Expiration date of Discount Mapping')
-
-@utils.arg(
     '--map_object', 
     metavar='<Map Object>', 
     action=NotEmptyAction,
@@ -810,12 +804,6 @@ def do_discount_mapping_create(cc, args):
     metavar='<Discount Apply Type>', 
     action=NotEmptyAction,
     help='Discount Apply Time')
-
-@utils.arg(
-    '--discount_expiration_date', 
-    metavar='<Expiration Date>', 
-    action=NotEmptyAction,
-    help='Expiration date of Discount Mapping')
 
 @utils.arg(
     '--discount_expiration_date', 
