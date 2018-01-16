@@ -56,7 +56,7 @@ class ServiceTypeManager(base.Manager):
         path = "/v1/service_type/%s" % service_type_id
         return self._update(path, body)
  
-    def delete(self):
+    def delete(self, service_type_id):
         """
         Delete a Service Type
         """
