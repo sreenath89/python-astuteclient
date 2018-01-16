@@ -102,8 +102,6 @@ def do_billing_type_create(cc, args):
         bt_create = cc.billing_types.create(args.billing_type_name, args.billing_type_code)
     except Exception, e:
         print(e)
-    else:
-        do_billing_type_list(cc, args)
     
 @utils.arg(
     '--billing_type_id', 
