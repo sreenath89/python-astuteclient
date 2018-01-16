@@ -100,7 +100,7 @@ class Manager(object):
         print('******BODY****')
         if obj_class is None:
             obj_class = self.resource_class
-        print('**b1**')
+        #print('**b1**')
         print('response key is')
         print(response_key)
         if response_key:

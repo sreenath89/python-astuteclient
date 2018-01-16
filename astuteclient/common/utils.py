@@ -51,13 +51,13 @@ def pretty_choice_list(l):
 
 
 def print_list(objs, fields, field_labels, formatters={}, sortby=0):
-    print('****INSIDE PRINT_LIST-------')
+    #print('****INSIDE PRINT_LIST-------')
     def _make_default_formatter(field):
         return lambda o: getattr(o, field, '')
 
     new_formatters = {}
-    print(formatters)
-    print('=====================')
+    #print(formatters)
+    #print('=====================')
     for field, field_label in six.moves.zip(fields, field_labels):
         if field in formatters:
             new_formatters[field_label] = formatters[field]
@@ -142,12 +142,12 @@ def find_resource(manager, name_or_id):
 def import_versioned_module(version, submodule=None):
     module = 'astuteclient.v%s' % version
 
-    print('=======================')
-    print(module)
-    print('======================')
+    #print('=======================')
+    #print(module)
+    #print('======================')
     if submodule:
         module = '.'.join((module, submodule))
-    print('IMPORT VERSIONED_MODULE-utils.py')
+    #print('IMPORT VERSIONED_MODULE-utils.py')
     return importutils.import_module(module)
 
 
