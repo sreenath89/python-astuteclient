@@ -45,6 +45,7 @@ class BillingTypeManager(base.Manager):
         """
         Update a Billing Type
         """
+        print('Inside update - biling types file')
         path = "/v1/billing/type/%" 
         body = {"name": name, "code":code}
         try:
