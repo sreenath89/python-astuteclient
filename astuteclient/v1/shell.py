@@ -48,12 +48,6 @@ def do_billing_type_list(cc, args):
     """
     List the billing types
     """
-    print('INISDE do_billing_type')
-    print('========================')
-    print(args)
-    print(cc)
-    print "Sample Billing type"
-    print('BEFORE FETCHING THE DATA')
     try:
         billing_types = cc.billing_types.list()
     except exc.HTTPNotFound():
@@ -61,7 +55,6 @@ def do_billing_type_list(cc, args):
     else:
         field_labels = ['Id', 'Name', 'Status', 'Code']
         fields = ['id', 'name', 'status', 'code']
-        print('BEFORE PRINTING')
         utils.print_list(billing_types, fields, field_labels, sortby=0)
 
 @utils.arg('--billing_type_id', metavar='<ID of Billing Type>', action=NotEmptyAction,
@@ -69,17 +62,13 @@ def do_billing_type_list(cc, args):
 def do_billing_type_get(cc, args):
     '''Display details of a billing type'''
     try:
-        print('Inside show billing type functin')
-        print(args)
         billing_type = cc.billing_types.get(args.billing_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Billing Type Not Found : %s' %args.billing_type_id)
     else:
         field_labels = ['Id', 'Name', 'Status', 'Code']
         fields = ['id', 'name', 'status', 'code']
-        print('before data')
         data = dict((f, getattr(billing_type, f, '')) for f in fields)
-        print('before printing')
         utils.print_dict(data, wrap=72)
 
 @utils.arg(
@@ -97,8 +86,6 @@ def do_billing_type_get(cc, args):
 def do_billing_type_create(cc, args):
     '''Create a new billing type'''
     try:
-        print('INSIDE DO BILLING TYPE CREATE - shell.py')
-        print('##########')
         bt_create = cc.billing_types.create(args.billing_type_name, args.billing_type_code)
     except Exception, e:
         print(e)

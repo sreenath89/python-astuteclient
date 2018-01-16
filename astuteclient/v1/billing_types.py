@@ -37,7 +37,7 @@ class BillingTypeManager(base.Manager):
         """
         Create a New Billing Type
         """
-        path = "/v/billing/type"
+        path = "/v1/billing/type"
         body = {"name": name, "code":code}
         return self._create(path, body)
     
