@@ -921,7 +921,7 @@ def do_service_type_create(cc, args):
     if getattr(args, 'code', None):
         filter_options['code'] = args.code
         
-    if getattr(args, 'units', None):
+    if getattr(args, 'units', ""):
         filter_options['units'] = args.units
 
     try:
