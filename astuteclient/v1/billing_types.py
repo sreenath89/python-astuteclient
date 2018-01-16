@@ -25,7 +25,6 @@ class BillingTypeManager(base.Manager):
         """
         Get the details of an individual billing type
         """
-        #path = self._get("/v1/billing/type" + id)
         path = "/v1/billing/type/" + id
 
         try:
@@ -45,7 +44,6 @@ class BillingTypeManager(base.Manager):
         """
         Update a Billing Type
         """
-        print('Inside update - biling types file')
         path = "/v1/billing/type/%s" 
         body = {"name": name, "code":code}
         try:

@@ -880,7 +880,124 @@ def do_service_type_get(cc, args):
         field_labels = ['Id', 'Name', 'Code', 'Units', 'Status']
         fields = ['id', 'name', 'code', 'units', 'status']
         data = dict((f, getattr(service_type, f, '')) for f in fields)
-        utils.print_dict(data, wrap=72)   
+        utils.print_dict(data, wrap=72)
+
+@utils.arg(
+    '--name', 
+    metavar='<Name of new Service Type>', 
+    action=NotEmptyAction,
+    help='Name of the Service Type.')
+
+@utils.arg(
+    '--status', 
+    metavar='<Code for the newly added Service Type>', 
+    action=NotEmptyAction,
+    help='Code for the newly Added Service Type')
+
+@utils.arg(
+    '--code', 
+    metavar='<ID of Service Type>', 
+    action=NotEmptyAction,
+    help='ID of the Service Type whose details are to be shown.')
+
+@utils.arg(
+    '--units', 
+    metavar='<Units for the Service Type>',
+    default="",
+    help='Units for the Service Type')
+
+def do_service_type_create(cc, args):
+    '''Create a new Service Type'''
+    
+    #Initializing    
+    filter_options = {}
+
+    if getattr(args, 'name', None):
+        filter_options['name'] = args.name
+        
+    if getattr(args, 'status', None):
+        filter_options['status'] = args.status
+        
+    if getattr(args, 'code', None):
+        filter_options['code'] = args.code
+        
+    if getattr(args, 'units', None):
+        filter_options['units'] = args.units
+
+    try:
+        create_service_type = cc.service_types.create(**filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_plan_list(cc, args)
+
+@utils.arg(
+    '--service_type_id', 
+    metavar='<ID of Service Type>', 
+    action=NotEmptyAction,
+    help='ID of the Service Type whose details are to be shown.')
+     
+@utils.arg(
+    '--name', 
+    metavar='<Name of new Service Type>', 
+    action=NotEmptyAction,
+    help='Name of the Service Type.')
+
+@utils.arg(
+    '--status', 
+    metavar='<Code for the newly added Service Type>', 
+    action=NotEmptyAction,
+    help='Code for the newly Added Service Type')
+
+@utils.arg(
+    '--code', 
+    metavar='<ID of Service Type>', 
+    action=NotEmptyAction,
+    help='ID of the Service Type whose details are to be shown.')
+
+@utils.arg(
+    '--units', 
+    metavar='<Units for the Service Type>', 
+    default = "",
+    help='Units for the Service Type')
+
+def do_service_type_update(cc, args):
+    '''Update an existing Service Type'''
+    #Initializing    
+    filter_options = {}
+
+    if getattr(args, 'service_type_id', None):
+        filter_options['service_type_id'] = args.service_type_id
+        
+    if getattr(args, 'name', None):
+        filter_options['name'] = args.name
+        
+    if getattr(args, 'status', None):
+        filter_options['status'] = args.status
+        
+    if getattr(args, 'code', None):
+        filter_options['code'] = args.code
+        
+    if getattr(args, 'units', ""):
+        filter_options['units'] = args.units
+
+    try:
+        update_service_type = cc.service_types.update(**filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_plan_list(cc, args)
+    
+@utils.arg(
+    '--service_type_id', 
+    metavar='<ID of Service Type>', 
+    action=NotEmptyAction,
+    help='ID of the Service Type which is to be deleted.')
+
+def do_service_type_delete(cc, args):
+    '''Delete a Service Type'''
+    
+    
 
 #################End of Service Types section#############
 def do_user_plans_list(cc, args):
