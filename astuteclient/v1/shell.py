@@ -94,7 +94,6 @@ def do_billing_type_create(cc, args):
     '--billing_type_id', 
     metavar='<ID of Billing Type>', 
     type=int,
-    action=NotEmptyAction,
     help='ID of the billing type which is to be updated.')
 
 @utils.arg(
