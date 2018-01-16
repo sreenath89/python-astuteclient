@@ -120,6 +120,11 @@ class Manager(object):
         return [obj_class(self, res, loaded=True) for res in data if res]
 
     def _update(self, url, body, response_key=None):
+        print('INSIDE _UPDATE METHOD')
+        print('URL')
+        print(url)
+        print('BODY')
+        print(body)
         body = self.api.put(url, json=body).json()
         # PUT requests may not return a body
         if body:
