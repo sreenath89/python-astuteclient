@@ -32,7 +32,7 @@ class ServiceTypeManager(base.Manager):
         """
         Create a new Service Type
         """
-        path = "/v1/service_types"
+        path = "/v1/service_type"
         body = {
             "name": name,
             "status": status,
@@ -48,7 +48,7 @@ class ServiceTypeManager(base.Manager):
         """
         Update a Service Type
         """
-        path = "/v1/service_types/%s" % service_type_id
+        path = "/v1/service_type/%s" % service_type_id
         body = {
             "name": name,
             "status": status,
@@ -62,7 +62,7 @@ class ServiceTypeManager(base.Manager):
         """
         Delete a Service Type
         """
-        path = "/v1/service_types/%s" % service_type_id
+        path = "/v1/service_type/%s" % service_type_id
         try:
             return self._delete(path)
         except Exception, e:

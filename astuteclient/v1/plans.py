@@ -52,7 +52,7 @@ class PlanManager(base.Manager):
         print(body)
         return self._create(path, body)
     
-    def delete(self):
+    def delete(self, service_type_id):
         """
         Delete a Plan
         """
@@ -62,7 +62,7 @@ class PlanManager(base.Manager):
         except Exception, e:
             print(e)
     
-    def update(self):
+    def update(self, service_type_id):
         """
         Update a Plan
         """
