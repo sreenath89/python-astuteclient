@@ -50,14 +50,11 @@ class UserBillingTypeManager(base.Manager):
         return self._create(path, body)
         
     
-    def delete(self):
+    def delete(self, mapping_id):
         """
         Delete a user-billing type mapping
         """
-        path = "/v1/billing/mapping/" + mapping_id
-        try:
-            return self._delete(path)
-        except Exception, e:
-            print(e)
+        path = "/v1/billing/mapping/%s"
+        return self._delete(path % mapping_id )
         
         
