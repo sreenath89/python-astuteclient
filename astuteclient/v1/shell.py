@@ -967,7 +967,7 @@ def do_service_type_update(cc, args):
     filter_options = {}
 
     if getattr(args, 'service_type_id', None):
-        filter_options['service_type_id'] = args.service_type_id
+        service_type_id = args.service_type_id
         
     if getattr(args, 'name', None):
         filter_options['name'] = args.name
@@ -982,7 +982,7 @@ def do_service_type_update(cc, args):
         filter_options['units'] = args.units
 
     try:
-        update_service_type = cc.service_types.update(**filter_options)
+        update_service_type = cc.service_types.update(service_type_id, **filter_options)
     except Exception, e:
         print(e)
     else:

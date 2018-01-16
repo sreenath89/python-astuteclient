@@ -44,20 +44,18 @@ class ServiceTypeManager(base.Manager):
         except Exception, e:
             print(e)
             
-    def update(self, service_type_id, name, status, code, units):
+    def update(self, service_type_id, **kwargs):
         """
         Update a Service Type
         """
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
+
         path = "/v1/service_type/%s" % service_type_id
-        body = {
-            "name": name,
-            "status": status,
-            "code": code,
-            "units": units
-        }
-        body= {}
         return self._update(path, body)
-    
+ 
     def delete(self):
         """
         Delete a Service Type
