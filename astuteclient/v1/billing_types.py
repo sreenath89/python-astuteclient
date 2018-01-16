@@ -41,13 +41,13 @@ class BillingTypeManager(base.Manager):
         body = {"name": name, "code":code}
         return self._create(path, body)
     
-    def update(self, name, code):
+    def update(self, id, name, code):
         """
         Update a Billing Type
         """
-        path = "/v1/billing/type"
+        path = "/v1/billing/type/%" 
         try:
-            return self._update(path, body)
+            return self._update(path % id, body)
         except Exception, e:
             print(e)
     
