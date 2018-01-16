@@ -28,7 +28,7 @@ class ServiceTypeManager(base.Manager):
         except IndexError:
             return None
         
-    def create(self, name, status, code, units):
+    def create(self, name=None, status=None, code=None, units=None):
         """
         Create a new Service Type
         """
