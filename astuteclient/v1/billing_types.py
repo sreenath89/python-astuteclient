@@ -46,6 +46,7 @@ class BillingTypeManager(base.Manager):
         Update a Billing Type
         """
         path = "/v1/billing/type/%" 
+        body = {"name": name, "code":code}
         try:
             return self._update(path % id, body)
         except Exception, e:
