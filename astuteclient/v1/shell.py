@@ -903,7 +903,7 @@ def do_service_type_get(cc, args):
 @utils.arg(
     '--units', 
     metavar='<Units for the Service Type>',
-    default="",
+    default=" ",
     help='Units for the Service Type')
 
 def do_service_type_create(cc, args):
@@ -929,7 +929,7 @@ def do_service_type_create(cc, args):
     except Exception, e:
         print(e)
     else:
-        do_plan_list(cc, args)
+        do_service_types_list(cc, args)
 
 @utils.arg(
     '--service_type_id', 
@@ -958,7 +958,7 @@ def do_service_type_create(cc, args):
 @utils.arg(
     '--units', 
     metavar='<Units for the Service Type>', 
-    default = "",
+    default = " ",
     help='Units for the Service Type')
 
 def do_service_type_update(cc, args):
@@ -986,7 +986,7 @@ def do_service_type_update(cc, args):
     except Exception, e:
         print(e)
     else:
-        do_plan_list(cc, args)
+        do_service_types_list(cc, args)
     
 @utils.arg(
     '--service_type_id', 
@@ -996,7 +996,12 @@ def do_service_type_update(cc, args):
 
 def do_service_type_delete(cc, args):
     '''Delete a Service Type'''
-    
+    try:
+        cc.service_types.delete(args.service_type_id)
+    except Exception, e:
+        print e
+    else:
+        do_service_types_list(cc, args)
     
 
 #################End of Service Types section#############
