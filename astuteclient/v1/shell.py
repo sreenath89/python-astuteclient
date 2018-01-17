@@ -803,7 +803,6 @@ def do_discount_mapping_get(cc, args):
 @utils.arg(
     '--ref_id', 
     metavar='<Ref Id>', 
-    type=int,
     help='Ref ID.')
 
 @utils.arg(
