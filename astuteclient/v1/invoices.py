@@ -56,6 +56,6 @@ class InvoiceManager(base.Manager):
                body.pop(key)
         print body
         try:
-            return self._update(invoice_id, body)
+            return self._update(path, body)
         except Exception, e:
             print(e)
