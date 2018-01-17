@@ -406,8 +406,8 @@ def do_invoice_list(cc, args):
     except exc.HTTPNotFound():
         raise exc.CommandError('Error: No Invoices Found!')
     else:
-        field_labels = ['Invoice Id', 'Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
-        fields = ['invoice_id', 'inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
+        field_labels = ['Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
+        fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
         utils.print_list(invoices, fields, field_labels, sortby=0)
     
 @utils.arg(
@@ -423,8 +423,8 @@ def do_invoice_get(cc, args):
     except exc.HTTPNotFound:
         raise exc.CommandError('Invoice Not Found : %s' %args.invoice_id)
     else:
-        field_labels = ['Invoice Id', 'Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
-        fields = ['invoice_id', 'inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
+        field_labels = ['Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
+        fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
         data = dict((f, getattr(invoice, f, '')) for f in fields)
         utils.print_dict(data, wrap=72)
         

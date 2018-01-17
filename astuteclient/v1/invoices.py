@@ -14,13 +14,13 @@ class InvoiceManager(base.Manager):
     def list(self):
         """
         """
-        path = '/v1/invoice'
+        path = "/v1/invoice"
         return self._list(path, "")
     
     def get(self, invoice_id):
         """
         """
-        path = '/v1/invoice/+' + invoice_id
+        path = "/v1/invoice/%s" % invoice_id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
@@ -36,10 +36,10 @@ class InvoiceManager(base.Manager):
 #         except Exception, e:
 #             print(e)
             
-    def delete(self):
+    def delete(self, invoice_id):
         """
         """
-        path = "/v1/invoice/" + invoice_id
+        path = "/v1/invoice/%s" % invoice_id
         try:
             return self._delete(path)
         except Exception, e:
@@ -49,9 +49,12 @@ class InvoiceManager(base.Manager):
         """
         Update an Invoice
         """
-        path = "/v1/invoice/" + invoice_id
-        body = {}
+        path = "/v1/invoice/%s" % invoice_id
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
         try:
-            return self._update(invoice_id)
+            return self._update(invoice_id, body)
         except Exception, e:
             print(e)
