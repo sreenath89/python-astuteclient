@@ -45,7 +45,7 @@ class InvoiceManager(base.Manager):
         except Exception, e:
             print(e)
     
-    def update(self, invoice_id):
+    def update(self, invoice_id, **kwargs):
         """
         Update an Invoice
         """
