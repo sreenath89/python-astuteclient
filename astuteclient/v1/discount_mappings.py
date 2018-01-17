@@ -68,14 +68,8 @@ class DiscountMappingManager(base.Manager):
         Delete a discount mapping
         """
         path = "/v1/discount/mapping/%s" % discount_mapping_id
-        body = kwargs
-        for key in body:
-           if body[key] is None:
-               body.pop(key)
-               
-        print(body)
         try:
-            return self._delete(path, body)
+            return self._delete(path)
         except Exception, e:
             print(e)        
         
