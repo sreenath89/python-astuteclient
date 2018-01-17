@@ -15,7 +15,7 @@ class PlanManager(base.Manager):
         """
         List all the Plans
         """
-        path = '/v1/plan'
+        path = "/v1/plan"
         qparams = {}
         return self._list(path, "")
     
@@ -23,7 +23,7 @@ class PlanManager(base.Manager):
         """
         List the details of an individual plan
         """
-        path = '/v1/plan/' + id
+        path = "/v1/plan/%s" % id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
@@ -33,7 +33,7 @@ class PlanManager(base.Manager):
         """
         Create a New Plan
         """
-        path = '/v1/plan'
+        path = "/v1/plan"
         body = {
             "name": plan_name,
             "code": plan_code,
@@ -52,11 +52,11 @@ class PlanManager(base.Manager):
         print(body)
         return self._create(path, body)
     
-    def delete(self, service_type_id):
+    def delete(self, plan_id):
         """
         Delete a Plan
         """
-        path = '/v1/plan/' + plan_id
+        path = "/v1/plan/%s" % plan_id
         try:
             return self._delete(path)
         except Exception, e:
@@ -75,6 +75,4 @@ class PlanManager(base.Manager):
             return self._update(path, body)
         except Exception, e:
             print(e)
-    
-        
-    
+
