@@ -294,13 +294,13 @@ def do_plan_delete(cc, args):
     help='Id of the Plan.')
 
 @utils.arg(
-    '--plan_name', 
+    '--name', 
     metavar='<Plan Name>', 
     action=NotEmptyAction,
     help='Name of the new plan')
 
 @utils.arg(
-    '--plan_code', 
+    '--code', 
     metavar='<Plan Code>', 
     action=NotEmptyAction,
     help='Code for the Plan')
