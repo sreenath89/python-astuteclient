@@ -133,33 +133,31 @@ def do_billing_type_delete(cc, args):
 def do_plan_list(cc, args):
     '''List all the available plans'''
     try:
-        print('Inside do list plans function')
         plans = cc.plans.list()
     except exc.HTTPNotFound():
         raise exc.CommandError('Error:No Plans Found!')
     else:
-        field_labels = ['Status', 'Code', 'Name', 'Billing Type', 'Rate']
-        fields = ['status', 'code', 'name', 'billing_type', 'rate']
-        print('BEFORE PRINTING PLAN LIST')
+        field_labels = ['Id', 'Status', 'Code', 'Name', 'Billing Type', 'Rate']
+        fields = ['id', 'status', 'code', 'name', 'billing_type', 'rate']
         utils.print_list(plans, fields, field_labels, sortby=0)
     
-@utils.arg('--plan_id', metavar='<Id of the Plan>', action=NotEmptyAction,
-           help='Id of the Plan.')
+@utils.arg(
+    '--plan_id', 
+    metavar='<Id of the Plan>', 
+    action=NotEmptyAction,
+    help='Id of the Plan.')
+
 def do_plan_get(cc, args):
     '''Get the details of a plan'''
     print('Get plan details')
     try:
-        print('Inside show billing type functin')
-        print(args)
         plan = cc.plans.get(args.plan_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Plan Not Found : %s' %args.plan_id)
     else:
-        field_labels = ['Status', 'Code', 'Name', 'Billing Type', 'Rate']
-        fields = ['status', 'code', 'name', 'billing_type', 'rate']
-        print('before data')
+        field_labels = ['Id', 'Status', 'Code', 'Name', 'Billing Type', 'Rate']
+        fields = ['id', 'status', 'code', 'name', 'billing_type', 'rate']
         data = dict((f, getattr(plan, f, '')) for f in fields)
-        print('before printing')
         utils.print_dict(data, wrap=72)
     
 @utils.arg(
