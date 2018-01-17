@@ -26,15 +26,15 @@ class InvoiceManager(base.Manager):
         except IndexError:
             return None
         
-    def create(self):
-        """
-        """
-        path = "/v1/invoice"
-        body = {}
-        try:
-            return self._create(path, body)
-        except Exception, e:
-            print(e)
+#     def create(self):
+#         """
+#         """
+#         path = "/v1/invoice"
+#         body = {}
+#         try:
+#             return self._create(path, body)
+#         except Exception, e:
+#             print(e)
             
     def delete(self):
         """
@@ -45,8 +45,9 @@ class InvoiceManager(base.Manager):
         except Exception, e:
             print(e)
     
-    def update(self):
+    def update(self, invoice_id):
         """
+        Update an Invoice
         """
         path = "/v1/invoice/" + invoice_id
         body = {}

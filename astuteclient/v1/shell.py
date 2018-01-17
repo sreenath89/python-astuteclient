@@ -16,6 +16,7 @@
 from astuteclient.common import utils
 import astuteclient.exc as exc
 import argparse
+from formencode.validators import NotEmpty
 
 
 class NotEmptyAction(argparse.Action):
@@ -411,25 +412,83 @@ def do_invoice_list(cc, args):
         fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
         utils.print_list(invoices, fields, field_labels, sortby=0)
     
-@utils.arg('--invoice_id', metavar='<ID of Invoice>', action=NotEmptyAction,
-           help='ID of the Invoice whose details are to be shown.')
+@utils.arg(
+    '--invoice_id', 
+    metavar='<ID of Invoice>', 
+    action=NotEmptyAction,
+    help='ID of the Invoice whose details are to be shown.')
+
 def do_invoice_get(cc, args):
     '''Get details of a invoice'''
-    print('Get Invoice details')
     try:
-        print('Inside show invoice function')
-        print(args)
-        print('-------------After args-----------------')
         invoice = cc.invoices.get(args.invoice_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Invoice Not Found : %s' %args.invoice_id)
     else:
         field_labels = ['Code', 'Date', 'From', 'To', 'User', 'Total', 'Paid Amount', 'Balance']
         fields = ['inv_code', 'inv_date', 'inv_from', 'inv_to', 'user', 'total_amt', 'amt_paid', 'balance_amt']
-        print('before data')
         data = dict((f, getattr(invoice, f, '')) for f in fields)
-        print('before printing')
         utils.print_dict(data, wrap=72)
+        
+@utils.arg(
+    '--invoice_id', 
+    metavar='<ID of Invoice>', 
+    action=NotEmptyAction,
+    help='ID of the Invoice whose details are to be updated.')
+
+@utils.arg(
+    '--status',
+    metavar='<Invoice Status>',
+    help='Status of the Invoice.')
+
+@utils.arg(
+    '--balance_amt',
+    metavar='<Balance Amount>',
+    help='Balance Amount in the Invoice.')
+
+@utils.arg(
+    '--amt_paid',
+    metavar='<Paid Amount>',
+    help='Amount that has been Paid.')
+
+def do_invoice_update(cc, args):
+    '''Update an Invoice'''
+    
+    #Initializing    
+    filter_options = {}
+    
+    if getattr(args, 'invoice_id', None):
+        invoice_id = args.invoice_id
+        
+    if getattr(args, 'status', None):
+        filter_options['status'] = args.status
+        
+    if getattr(args, 'balance_amt', None):
+        filter_options['balance_amt'] = args.balance_amt
+        
+    if getattr(args, 'amt_paid', None):
+        filter_options['amt_paid'] = args.amt_paid
+        
+    try:
+        cc.invoices.update(invoice_id, **filter_options)
+    except Exception, e:
+        print(e)
+
+@utils.arg(
+    '--invoice_id', 
+    metavar='<ID of Invoice>', 
+    action=NotEmptyAction,
+    help='ID of the Invoice which is to be deleted.')
+
+def do_invoice_delete(cc, args):
+    '''Delete an Invoice'''
+    try:
+        invoice = cc.invoices.delete(args.invoice_id)
+    except Exception, e:
+        print(e)
+        print('Error: Unable to delete the invoice!')
+    else:
+        do_invoice_list(cc, args)
 
 #################End of Invoices section#################
 def do_discount_type_list(cc, args):
