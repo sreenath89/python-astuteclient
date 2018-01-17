@@ -54,6 +54,7 @@ class InvoiceManager(base.Manager):
         for key in body:
            if body[key] is None:
                body.pop(key)
+        print body
         try:
             return self._update(invoice_id, body)
         except Exception, e:
