@@ -828,19 +828,10 @@ def do_discount_mapping_create(cc, args):
     
     #Initializing    
     filter_options = {}
-    
-    if getattr(args, 'discount_type_id', None):
-        filter_options['discount_type_id'] = args.discount_type_id
-    
+
     if getattr(args, 'discount_id', None):
         filter_options['discount_id'] = args.discount_id
-        
-    if getattr(args, 'discount_name', None):
-        filter_options['name'] = args.discount_name
-        
-    if getattr(args, 'discount_code', None):
-        filter_options['code'] = args.discount_code
-        
+       
     if getattr(args, 'user', None):
         filter_options['user'] = args.user
         
@@ -930,16 +921,7 @@ def do_discount_mapping_update(cc, args):
     
     if getattr(args, 'discount_mapping_id', None):
         filter_options['discount_mapping_id'] = args.discount_mapping_id
-        
-    if getattr(args, 'discount_type_id', None):
-        filter_options['discount_type_id'] = args.discount_type_id
-        
-    if getattr(args, 'discount_name', None):
-        filter_options['discount_name'] = args.discount_name
-        
-    if getattr(args, 'discount_code', None):
-        filter_options['discount_code'] = args.discount_code
-        
+  
     if getattr(args, 'user', None):
         filter_options['user'] = args.user
     
