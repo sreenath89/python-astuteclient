@@ -933,6 +933,9 @@ def do_discount_mapping_update(cc, args):
     #Initializing    
     filter_options = {}
     
+    if getattr(args, 'discount_mapping_id', None):
+        filter_options['discount_mapping_id'] = args.discount_mapping_id
+        
     if getattr(args, 'discount_id', None):
         filter_options['discount_id'] = args.discount_id
        
@@ -961,7 +964,7 @@ def do_discount_mapping_update(cc, args):
         filter_options['amt'] = args.amt
 
     try:
-        cc.discount_mappings.update(**filter_options)
+        cc.discount_mappings.update(discount_mapping_id, **filter_options)
     except Exception, e:
         print(e)
     else:
