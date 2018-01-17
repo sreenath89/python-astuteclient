@@ -29,33 +29,45 @@ class DiscountMappingManager(base.Manager):
         except IndexError:
             return None
     
-    def create(self):
+    def create(self, **kwargs):
         """
         Create a discount mapping
         """
         path = "/v1/discount/mapping"
-        body = {}
+        
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
+               
+        print(body)       
         try:
             return self._create(path, body)
         except Exception, e:
             print(e)
     
-    def update(self):
+    def update(self, discount_mapping_id):
         """
         Update a discount mapping
         """
         path = "/v1/discount/mapping"
-        body = {}
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
+               
+        print(body)
+        
         try:
             return self._update(path, body)
         except Exception ,e:
             print(e)
         
-    def delete(self):
+    def delete(self, discount_mapping_id):
         """
         Delete a discount mapping
         """
-        path = "/v1/discount/mapping/" + discount_mapping_id
+        path = "/v1/discount/mapping/%s" % discount_mapping_id
         try:
             return self._delete(path, body)
         except Exception, e:

@@ -765,6 +765,12 @@ def do_discount_mapping_get(cc, args):
     help='ID of the Discount Mapping whose details are to be shown.')
 
 @utils.arg(
+    '--discount_id', 
+    metavar='<ID of Discount>', 
+    type=int,
+    help='ID of the Discount which is to be mapped')
+
+@utils.arg(
     '--discount_code', 
     metavar='<Discount Code>', 
     action=NotEmptyAction,
@@ -787,6 +793,18 @@ def do_discount_mapping_get(cc, args):
     metavar='<Discount Apply Type>', 
     action=NotEmptyAction,
     help='Discount Apply Time')
+
+@utils.arg(
+    '--apply_interval', 
+    metavar='<Apply Interval>', 
+    action=NotEmptyAction,
+    help='Apply Interval')
+
+@utils.arg(
+    '--ref_id', 
+    metavar='<Ref Id>', 
+    type=int,
+    help='Ref ID.')
 
 @utils.arg(
     '--discount_expiration_date', 
@@ -814,21 +832,30 @@ def do_discount_mapping_create(cc, args):
     
     if getattr(args, 'discount_type_id', None):
         filter_options['discount_type_id'] = args.discount_type_id
+    
+    if getattr(args, 'discount_id', None):
+        filter_options['discount_id'] = args.discount_id
         
     if getattr(args, 'discount_name', None):
-        filter_options['discount_name'] = args.discount_name
+        filter_options['name'] = args.discount_name
         
     if getattr(args, 'discount_code', None):
-        filter_options['discount_code'] = args.discount_code
+        filter_options['code'] = args.discount_code
         
     if getattr(args, 'user', None):
         filter_options['user'] = args.user
+        
+    if getattr(args, 'ref_id', None):
+        filter_options['ref_id'] = args.ref_id
     
     if getattr(args, 'apply_type', None):
         filter_options['apply_type'] = args.apply_type
+        
+    if getattr(args, 'apply_interval', None):
+        filter_options['apply_interval'] = args.apply_interval
     
     if getattr(args, 'discount_expiration_date', None):
-        filter_options['discount_expiration_date'] = args.discount_expiration_date
+        filter_options['expiration_date'] = args.discount_expiration_date
     
     if getattr(args, 'map_object', None):
         filter_options['map_object'] = args.map_object
