@@ -46,11 +46,11 @@ class DiscountMappingManager(base.Manager):
         except Exception, e:
             print(e)
     
-    def update(self, discount_mapping_id):
+    def update(self, discount_mapping_id, **kwargs):
         """
         Update a discount mapping
         """
-        path = "/v1/discount/mapping"
+        path = "/v1/discount/mapping/%s" % discount_mapping_id
         body = kwargs
         for key in body:
            if body[key] is None:
@@ -68,6 +68,12 @@ class DiscountMappingManager(base.Manager):
         Delete a discount mapping
         """
         path = "/v1/discount/mapping/%s" % discount_mapping_id
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
+               
+        print(body)
         try:
             return self._delete(path, body)
         except Exception, e:
