@@ -16,8 +16,6 @@
 from astuteclient.common import utils
 import astuteclient.exc as exc
 import argparse
-from formencode.validators import NotEmpty
-
 
 class NotEmptyAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
