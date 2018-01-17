@@ -791,8 +791,14 @@ def do_discount_mapping_get(cc, args):
 @utils.arg(
     '--apply_type', 
     metavar='<Discount Apply Type>', 
-    action=NotEmptyAction,
+    default="",
     help='Discount Apply Time')
+
+@utils.arg(
+    '--apply_amt', 
+    metavar='<Apply Amount>', 
+    action=NotEmptyAction,
+    help='If discount type is override , then this value is set with override amount of user plan')
 
 @utils.arg(
     '--apply_interval', 
@@ -841,6 +847,9 @@ def do_discount_mapping_create(cc, args):
     if getattr(args, 'apply_type', None):
         filter_options['apply_type'] = args.apply_type
         
+    if getattr(args, 'apply_amt', None):
+        filter_options['apply_amt'] = args.apply_amt
+        
     if getattr(args, 'apply_interval', None):
         filter_options['apply_interval'] = args.apply_interval
     
@@ -867,22 +876,10 @@ def do_discount_mapping_create(cc, args):
     help='ID of the Discount Mapping whose details are to be updated.')
 
 @utils.arg(
-    '--discount_type_id', 
-    metavar='<ID of Discount Mapping>', 
+    '--discount_id', 
+    metavar='<ID of Discount>', 
     type=int,
-    help='ID of the Discount Mapping whose details are to be shown.')
-
-@utils.arg(
-    '--discount_code', 
-    metavar='<Discount Code>', 
-    action=NotEmptyAction,
-    help='Discount Code')
-
-@utils.arg(
-    '--discount_name', 
-    metavar='<Discount Name>', 
-    action=NotEmptyAction,
-    help='Name of the Discount')
+    help='ID of the Discount which is to be mapped')
 
 @utils.arg(
     '--user', 
@@ -891,10 +888,27 @@ def do_discount_mapping_create(cc, args):
     help='ID of User for whom the discount is to be applied.')
 
 @utils.arg(
+    '--ref_id', 
+    metavar='<Ref Id>', 
+    help='Ref ID.')
+
+@utils.arg(
     '--apply_type', 
     metavar='<Discount Apply Type>', 
     action=NotEmptyAction,
     help='Discount Apply Time')
+
+@utils.arg(
+    '--apply_amt', 
+    metavar='<Apply Amount>', 
+    default = "",
+    help='If discount type is override , then this value is set with override amount of user plan')
+
+@utils.arg(
+    '--apply_interval', 
+    metavar='<Apply Interval>', 
+    action=NotEmptyAction,
+    help='Apply Interval')
 
 @utils.arg(
     '--discount_expiration_date', 
@@ -919,17 +933,26 @@ def do_discount_mapping_update(cc, args):
     #Initializing    
     filter_options = {}
     
-    if getattr(args, 'discount_mapping_id', None):
-        filter_options['discount_mapping_id'] = args.discount_mapping_id
-  
+    if getattr(args, 'discount_id', None):
+        filter_options['discount_id'] = args.discount_id
+       
     if getattr(args, 'user', None):
         filter_options['user'] = args.user
+        
+    if getattr(args, 'ref_id', None):
+        filter_options['ref_id'] = args.ref_id
     
     if getattr(args, 'apply_type', None):
         filter_options['apply_type'] = args.apply_type
     
+    if getattr(args, 'apply_amt', None):
+        filter_options['apply_amt'] = args.apply_amt
+    
+    if getattr(args, 'apply_interval', None):
+        filter_options['apply_interval'] = args.apply_interval
+    
     if getattr(args, 'discount_expiration_date', None):
-        filter_options['discount_expiration_date'] = args.discount_expiration_date
+        filter_options['expiration_date'] = args.discount_expiration_date
     
     if getattr(args, 'map_object', None):
         filter_options['map_object'] = args.map_object
