@@ -41,12 +41,15 @@ class DiscountManager(base.Manager):
         }
         return self._create(path, body)
     
-    def update(self):
+    def update(self, discount_id, **kwargs):
         """
         Update a Discount
         """
-        path = "/v1/discount"
-        body = {}
+        path = "/v1/discount/%s" % discount_id
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
         try:
             return self._update(path, body)
         except Exception, e:

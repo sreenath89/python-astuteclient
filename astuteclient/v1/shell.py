@@ -630,28 +630,28 @@ def do_discount_update(cc, args):
     filter_options = {}
     
     if getattr(args, 'discount_id', None):
-        filter_options['discount_id'] = args.discount_id
+        discount_id = args.discount_id
         
     if getattr(args, 'discount_name', None):
-        filter_options['discount_name'] = args.discount_name
+        filter_options['name'] = args.discount_name
         
     if getattr(args, 'discount_code', None):
-        filter_options['discount_code'] = args.discount_code
+        filter_options['code'] = args.discount_code
         
     if getattr(args, 'discount_type_id', None):
         filter_options['discount_type_id'] = args.discount_type_id
         
     if getattr(args, 'discount_expiry_date', ""):
-        filter_options['discount_expiry_date'] = args.discount_expiry_date
+        filter_options['expiration_date'] = args.discount_expiry_date
 
     if getattr(args, 'discount_amount', None):
-        filter_options['discount_amount'] = args.discount_amount
+        filter_options['amt'] = args.discount_amount
         
     if getattr(args, 'notes', ""):
         filter_options['notes'] = args.notes
         
     try:
-        cc.discounts.update(**filter_options)
+        cc.discounts.update(discount_id, **filter_options)
     except Exception, e:
         print(e)
   
