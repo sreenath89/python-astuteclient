@@ -358,8 +358,46 @@ def do_plan_delete(cc, args):
 def do_plan_update(cc, args):
     '''Update plan details'''
     print('Update Plan details')
+    
+    #Initializing
+    filter_options = {}
+    
+    #Fetch the values
+    if getattr(args, 'plan_id', None):
+        plan_id = args.plan_id
+    
+    if getattr(args, 'plan_name', None):
+        filter_options['plan_name'] = args.plan_name
+        
+    if getattr(args, 'plan_code', None):
+        filter_options['plan_code'] = args.plan_code
+        
+    if getattr(args, 'rate', None):
+        filter_options['rate'] = args.rate
+        
+    if getattr(args, 'setup_fee', None):
+        filter_options['setup_fee'] = args.setup_fee
+        
+    if getattr(args, 'service_type_id', ""):
+        filter_options['service_type_id'] = args.service_type_id
+        
+    if getattr(args, 'billing_type', None):
+        filter_options['billing_type'] = args.billing_type
+        
+    if getattr(args, 'ref_id', " "):
+        filter_options['ref_id'] = args.ref_id
+        
+    if getattr(args, 'ram', None):
+        filter_options['ram'] = args.ram
+        
+    if getattr(args, 'cpu', None):
+        filter_options['cpu'] = args.cpu
+        
+    if getattr(args, 'storage', None):
+        filter_options['storage'] = args.storage
+    
     try:
-        cc.plans.update(**filter_options)
+        cc.plans.update(plan_id, **filter_options)
     except Exception, e:
         print(e)
     

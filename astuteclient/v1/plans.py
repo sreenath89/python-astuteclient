@@ -62,11 +62,15 @@ class PlanManager(base.Manager):
         except Exception, e:
             print(e)
     
-    def update(self, service_type_id):
+    def update(self, plan_id, **kwargs):
         """
         Update a Plan
         """
-        path = "/v1/plan"
+        path = "/v1/plan/%s" % plan_id
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
         try:
             return self._update(path, body)
         except Exception, e:
