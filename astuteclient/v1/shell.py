@@ -934,7 +934,7 @@ def do_discount_mapping_update(cc, args):
     filter_options = {}
     
     if getattr(args, 'discount_mapping_id', None):
-        filter_options['discount_mapping_id'] = args.discount_mapping_id
+        discount_mapping_id = args.discount_mapping_id
         
     if getattr(args, 'discount_id', None):
         filter_options['discount_id'] = args.discount_id
