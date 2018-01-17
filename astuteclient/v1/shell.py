@@ -364,11 +364,11 @@ def do_plan_update(cc, args):
     if getattr(args, 'plan_id', None):
         plan_id = args.plan_id
     
-    if getattr(args, 'plan_name', None):
-        filter_options['plan_name'] = args.plan_name
+    if getattr(args, 'name', None):
+        filter_options['name'] = args.name
         
-    if getattr(args, 'plan_code', None):
-        filter_options['plan_code'] = args.plan_code
+    if getattr(args, 'code', None):
+        filter_options['code'] = args.code
         
     if getattr(args, 'rate', None):
         filter_options['rate'] = args.rate
