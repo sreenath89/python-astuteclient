@@ -1132,6 +1132,7 @@ def do_service_type_delete(cc, args):
     
 
 #################End of Service Types section#############
+
 def do_user_plans_list(cc, args):
     '''List all User Plans'''
     try:
@@ -1143,8 +1144,12 @@ def do_user_plans_list(cc, args):
         fields = ['id', 'user', 'plan_id', 'status', 'created_on', 'qty', 'contract_period']
         utils.print_list(user_plans, fields, field_labels, sortby=0)
        
-@utils.arg('--user_plan_id', metavar='<ID of User Plan>', action=NotEmptyAction,
-           help='ID of the User Plan whose details are to be shown.') 
+@utils.arg(
+    '--user_plan_id', 
+    metavar='<ID of User Plan>', 
+    action=NotEmptyAction,
+    help='ID of the User Plan whose details are to be shown.')
+ 
 def do_user_plan_get(cc, args):
     '''Get details of a specific service type'''
     try:
@@ -1209,6 +1214,80 @@ def do_user_plan_create(cc, args):
     else:
         do_user_plans_list(cc, args)
         
+@utils.arg(
+    '--user_plan_id', 
+    metavar='<ID of User Plan>', 
+    action=NotEmptyAction,
+    help='ID of the User Plan whose details are to be updated.')
+
+@utils.arg(
+    '--user', 
+    metavar='<User ID>', 
+    action=NotEmptyAction,
+    help='ID of the User for whom the Plan is to be mapped')
+
+@utils.arg(
+    '--contract_period', 
+    metavar='<Contract Period>', 
+    action=NotEmptyAction,
+    help='Contract Period for the Plan')
+
+@utils.arg(
+    '--plan_id', 
+    type= int,
+    metavar='<Plan ID>', 
+    help='Plan to be assigned to the user')
+
+@utils.arg(
+    '--quantity', 
+    type= int,
+    metavar='<Quantity>', 
+    help='Quantity')
+
+def do_user_plan_update(cc, args):
+    '''Update a User Plan Mapping'''
+    
+    #Initializing    
+    filter_options = {}
+    user_plan_id
+    
+    if getattr(args, 'user_plan_id', None):
+        user_plan_id = args.user_plan_id
+    
+    if getattr(args, 'user', None):
+        filter_options['user'] = args.user
+        
+    if getattr(args, 'contract_period', None):
+        filter_options['contract_period'] = args.contract_period
+        
+    if getattr(args, 'plan_id', None):
+        filter_options['plan_id'] = args.plan_id
+        
+    if getattr(args, 'quantity', None):
+        filter_options['quantity'] = args.quantity
+    
+    try:
+        update_user_plan = cc.user_plans.update(user_plan_id, **filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_user_plans_list(cc, args)
+ 
+@utils.arg(
+    '--user_plan_id', 
+    metavar='<ID of User Plan>', 
+    action=NotEmptyAction,
+    help='ID of the User Plan which is to be deleted.')
+
+def do_service_type_delete(cc, args):
+    '''Delete a Service Type'''
+    try:
+        cc.user_plans.delete(args.user_plan_id)
+    except Exception, e:
+        print e
+    else:
+        do_user_plans_list(cc, args)
+
 #################End of User Plan Mapping section#########
 
 def do_user_billing_type_list(cc, args):
@@ -1291,6 +1370,75 @@ def do_user_billing_type_create(cc, args):
         
     except Exception, e:
         print(e)
-    
-#################End of User Billing Type Mapping section#
+            
+@utils.arg(
+    '--user_billing_type_id', 
+    metavar='<ID of User Plan>', 
+    action=NotEmptyAction,
+    help='ID of the User Plan whose details are to be shown.')
+ 
+@utils.arg(
+    '--billing_type_id', 
+    metavar='<Billing Type ID>', 
+    help='ID of the Billing Type which is to be assigned for the user')
 
+@utils.arg(
+    '--user', 
+    metavar='<User ID', 
+    help='ID of the User for whom the Billing Type is to be mapped')
+
+@utils.arg(
+    '--name', 
+    default = "",
+    metavar='<Name>', 
+    help='Name- extra fields')
+
+@utils.arg(
+    '--id', 
+    default= "",
+    metavar='<Id>', 
+    help='Id-extra fields')
+
+def do_user_billing_type_update(cc, args):
+    
+    #Initializing
+    filter_options = {}
+    
+    if getattr(args, 'user_billing_type_id', None):
+        user_billing_type_id = args.user_billing_type_id
+    
+    if getattr(args, 'billing_type_id', None):
+        filter_options['billing_type'] = args.billing_type_id
+        
+    if getattr(args, 'user', None):
+        filter_options['user'] = args.user
+    
+    if getattr(args, 'name', ""):
+        filter_options['name'] = args.name
+        
+    if getattr(args, 'id', ""):
+        filter_options['id'] = args.id
+        
+    try:
+        update_billing_type = cc.user_billing_types.update(user_billing_type_id, **filter_options)
+    except Exception, e:
+        print(e)
+    else:
+        do_user_billing_type_list(cc, args)
+    
+@utils.arg(
+    '--user_billing_type_id', 
+    metavar='<ID of User Plan>', 
+    action=NotEmptyAction,
+    help='ID of the User Plan whose details are to be shown.')
+
+def do_service_type_delete(cc, args):
+    '''Delete a Service Type'''
+    try:
+        cc.user_billing_types.delete(args.user_billing_type_id)
+    except Exception, e:
+        print e
+    else:
+        do_user_billing_type_list(cc, args)
+
+#################End of User Billing Type Mapping section#

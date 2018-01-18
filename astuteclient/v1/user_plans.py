@@ -16,14 +16,14 @@ class UserPlanManager(base.Manager):
         """
         List all the user plans
         """
-        path = '/v1/plan/mapping'
+        path = "/v1/plan/mapping"
         return self._list(path, "")
     
     def get(self, user_plan_mapping_id):
         """
         Get the details of a user plan
         """
-        path = '/v1/plan/mapping/' + user_plan_mapping_id
+        path = "/v1/plan/mapping/%s" % user_plan_mapping_id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
@@ -33,7 +33,7 @@ class UserPlanManager(base.Manager):
         """
         Create a new user plan
         """
-        path = '/v1/plan/mapping'
+        path = "/v1/plan/mapping"
         body = {
             "user": user,
             "contract_period": contract_period,
@@ -42,20 +42,26 @@ class UserPlanManager(base.Manager):
             }
         }
         return self._create(path, body)
+    
+    def update(self, user_plan_mapping_id):
+        """
+        Update a User Plan Mapping
+        """
+        path = "/v1/plan/mapping/%s" % user_plan_mapping_id
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
         
-    def delete(self, mapping_id):    
+        return self._update(path, body)
+        
+    def delete(self, user_plan_mapping_id):    
         """
         Delete a user plan
         """
-        path = '/v1/plan/mapping/' + mapping_id
+        path = "/v1/plan/mapping/%s" % user_plan_mapping_id
         try:
             return self._delete(path)
         except Exception, e:
             print(e)
-            
-    def update(self):
-        """
-        Update a User Plan
-        """
-        
     

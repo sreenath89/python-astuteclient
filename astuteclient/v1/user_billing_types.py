@@ -36,7 +36,6 @@ class UserBillingTypeManager(base.Manager):
         Create a new user-billing type mapping
         """
         path = "/v1/billing/mapping"
-        print('INSIDE CREAAAAATE')
         
         #Creating the body of the contents to be passed for creating the new mapping
         body = {
@@ -48,6 +47,18 @@ class UserBillingTypeManager(base.Manager):
             }
         }
         return self._create(path, body)
+    
+    def update(self, mapping_id, **kwargs):
+        """
+        Update a user billing type mapping
+        """
+        path = "/v1/billing/mapping/%s" % mapping_id
+        body = kwargs
+        for key in body:
+           if body[key] is None:
+               body.pop(key)
+        
+        return self._update(path, body)
         
     
     def delete(self, mapping_id):
