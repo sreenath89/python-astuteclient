@@ -1279,7 +1279,7 @@ def do_user_plan_update(cc, args):
     action=NotEmptyAction,
     help='ID of the User Plan which is to be deleted.')
 
-def do_service_type_delete(cc, args):
+def do_user_plan_delete(cc, args):
     '''Delete a Service Type'''
     try:
         cc.user_plans.delete(args.user_plan_id)
@@ -1432,7 +1432,7 @@ def do_user_billing_type_update(cc, args):
     action=NotEmptyAction,
     help='ID of the User Plan whose details are to be shown.')
 
-def do_service_type_delete(cc, args):
+def do_user_billing_type_delete(cc, args):
     '''Delete a Service Type'''
     try:
         cc.user_billing_types.delete(args.user_billing_type_id)
