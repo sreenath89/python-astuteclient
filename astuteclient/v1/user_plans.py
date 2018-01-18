@@ -43,7 +43,7 @@ class UserPlanManager(base.Manager):
         }
         return self._create(path, body)
     
-    def update(self, user_plan_mapping_id):
+    def update(self, user_plan_mapping_id, **kwargs):
         """
         Update a User Plan Mapping
         """
