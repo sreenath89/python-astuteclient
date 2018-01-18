@@ -1233,6 +1233,12 @@ def do_user_plan_create(cc, args):
     help='Contract Period for the Plan')
 
 @utils.arg(
+    '--status', 
+    metavar='<Status>', 
+    action=NotEmptyAction,
+    help='Status of the Plan')
+
+@utils.arg(
     '--plan_id', 
     type= int,
     metavar='<Plan ID>', 
@@ -1258,6 +1264,9 @@ def do_user_plan_update(cc, args):
         
     if getattr(args, 'contract_period', None):
         filter_options['contract_period'] = args.contract_period
+
+    if getattr(args, 'status', None):
+        filter_options['status'] = args.status
         
     if getattr(args, 'plan_id', None):
         filter_options['plan_id'] = args.plan_id
