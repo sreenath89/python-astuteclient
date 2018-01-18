@@ -1249,7 +1249,6 @@ def do_user_plan_update(cc, args):
     
     #Initializing    
     filter_options = {}
-    user_plan_id
     
     if getattr(args, 'user_plan_id', None):
         user_plan_id = args.user_plan_id
