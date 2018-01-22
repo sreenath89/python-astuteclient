@@ -16,7 +16,7 @@ class BillingTypeManager(base.Manager):
         """
         List all the Billing Types
         """
-        path = '/v1/billing/type'
+        path = "/v1/billing/type"
         qparams = {}
         return self._list(path, "")
 
@@ -25,7 +25,7 @@ class BillingTypeManager(base.Manager):
         """
         Get the details of an individual billing type
         """
-        path = "/v1/billing/type/" + id
+        path = "/v1/billing/type/%s" % id
 
         try:
             return self._list(path, expect_single=True)[0]
