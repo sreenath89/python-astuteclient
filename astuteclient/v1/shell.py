@@ -24,25 +24,6 @@ class NotEmptyAction(argparse.Action):
             raise exc.CommandError('%s should not be empty' % self.dest)
         setattr(namespace, self.dest, values)
 
-@utils.arg('-m', '--metaquery', metavar='<METAQUERY>',
-           help='Query into the metadata metadata.key=value:..')
-@utils.arg('-s', '--source', metavar='<SOURCE>',
-           help='ID of the resource to show samples for.')
-@utils.arg('-r', '--resource_id', metavar='<RESOURCE_ID>',
-           help='ID of the resource to show samples for.')
-@utils.arg('-u', '--user_id', metavar='<USER_ID>',
-           help='ID of the user to show samples for.')
-@utils.arg('-p', '--project_id', metavar='<PROJECT_ID>',
-           help='ID of the project to show samples for.')
-@utils.arg('-c', '--counter_name', metavar='<NAME>',
-           help='Name of meter to show samples for.')
-@utils.arg('--start', metavar='<START_TIMESTAMP>',
-           help='ISO date in UTC which limits events by '
-           'timestamp >= this value')
-@utils.arg('--end', metavar='<END_TIMESTAMP>',
-           help='ISO date in UTC which limits events by '
-           'timestamp <= this value')
-
 def do_billing_type_list(cc, args):
     """
     List the billing types
@@ -56,8 +37,12 @@ def do_billing_type_list(cc, args):
         fields = ['id', 'name', 'status', 'code']
         utils.print_list(billing_types, fields, field_labels, sortby=0)
 
-@utils.arg('--billing_type_id', metavar='<ID of Billing Type>', action=NotEmptyAction,
-           help='ID of the billing type to show.')
+@utils.arg(
+    '--billing_type_id', 
+    metavar='<ID of Billing Type>', 
+    action=NotEmptyAction,
+    help='ID of the billing type to show.')
+
 def do_billing_type_get(cc, args):
     '''Display details of a billing type'''
     try:
@@ -225,10 +210,6 @@ def do_plan_create(cc, args):
     #Initializing    
     filter_options = {}
     
-    print('====================')
-    print(args.service_type_id)
-    print('SERVICE TYPE ABOVE')
-    
     if getattr(args, 'plan_name', None):
         filter_options['plan_name'] = args.plan_name
         
@@ -258,14 +239,8 @@ def do_plan_create(cc, args):
         
     if getattr(args, 'storage', None):
         filter_options['storage'] = args.storage
-        
-    print('====================')
-    print(args.service_type_id)
-    print('SERVICE TYPE ABOVE')
     
     try:
-        print(filter_options)
-        print('##########')
         create_plan = cc.plans.create(**filter_options)
     except Exception, e:
         print(e)
@@ -280,7 +255,6 @@ def do_plan_create(cc, args):
 
 def do_plan_delete(cc, args):
     '''Delete a plan'''
-    print('Delete plan')
     try:
         cc.plans.delete(args.plan_id)
     except Exception, e:
@@ -354,7 +328,6 @@ def do_plan_delete(cc, args):
 
 def do_plan_update(cc, args):
     '''Update plan details'''
-    print('Update Plan details')
     
     #Initializing
     filter_options = {}
@@ -500,24 +473,22 @@ def do_discount_type_list(cc, args):
         fields = ['id', 'status', 'code', 'name']
         utils.print_list(discount_types, fields, field_labels, sortby=0)
     
-@utils.arg('--discount_type_id', metavar='<ID of Discount Type>', action=NotEmptyAction,
-           help='ID of the Discount Type whose details are to be shown.')
+@utils.arg(
+    '--discount_type_id', 
+    metavar='<ID of Discount Type>', 
+    action=NotEmptyAction,
+    help='ID of the Discount Type whose details are to be shown.')
 
 def do_discount_type_get(cc, args):
     '''Get the details of a discount type'''
-    print('Get discount types')
     try:
-        print('Inside show discount type function')
-        print(args)
         discount_type = cc.discount_types.get(args.discount_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Discount Type Not Found : %s' %args.discount_type_id)
     else:
         field_labels = ['Id', 'Status', 'Code', 'Name']
         fields = ['id', 'status', 'code', 'name']     
-        print('before data')
         data = dict((f, getattr(discount_type, f, '')) for f in fields)
-        print('before printing')
         utils.print_dict(data, wrap=72)
 
 @utils.arg(
@@ -556,16 +527,13 @@ def do_discount_get(cc, args):
     '''Get the details of a individual discount'''
     print('Get discount details')
     try:
-        print(args)
         discount = cc.discounts.get(args.discount_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Discount Not Found : %s' %args.discount_id)
     else:
         field_labels = ['Id', 'Code', 'Name', 'Discount_Type_Id', 'Discount_Type_Code', 'Expiration Date', 'Amt', 'Usage Count']
         fields = ['id', 'code', 'name', 'discount_type_id', 'discount_type_code', 'expiration_date', 'amt', 'usage_count']  
-        print('before data')
         data = dict((f, getattr(discount, f, '')) for f in fields)
-        print('before printing')
         utils.print_dict(data, wrap=72)
 
 
@@ -630,8 +598,6 @@ def do_discount_create(cc, args):
         filter_options['notes'] = args.notes
     
     try:
-        print(filter_options)
-        print('##########')
         user_plan_mapping = cc.discounts.create(**filter_options)
     except Exception, e:
         print(e)
@@ -999,7 +965,6 @@ def do_service_types_list(cc, args):
 def do_service_type_get(cc, args):
     '''Get details of a specific service type'''
     try:
-        print(args)
         service_type = cc.service_types.get(args.service_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Error: Service Type Not Found : %s' %args.service_type_id)
@@ -1153,7 +1118,6 @@ def do_user_plans_list(cc, args):
 def do_user_plan_get(cc, args):
     '''Get details of a specific service type'''
     try:
-        print(args)
         user_plan = cc.user_plans.get(args.user_plan_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Error: User Plan Mapping Not Found : %s' %args.user_plan_id)
@@ -1206,8 +1170,6 @@ def do_user_plan_create(cc, args):
         filter_options['quantity'] = args.quantity
     
     try:
-        print(filter_options)
-        print('##########')
         user_plan_mapping = cc.user_plans.create(**filter_options)
     except Exception, e:
         print(e)
@@ -1319,7 +1281,6 @@ def do_user_billing_type_list(cc, args):
 def do_user_billing_type_get(cc, args):
     '''Get details of a specific service type'''
     try:
-        print(args)
         user_billing_type = cc.user_billing_types.get(args.user_billing_type_id)
     except exc.HTTPNotFound:
         raise exc.CommandError('Error:User Billing Type Mapping Not Found : %s' %args.user_billing_type_id)
@@ -1372,10 +1333,7 @@ def do_user_billing_type_create(cc, args):
         filter_options['id'] = args.id
 
     try:
-        print(filter_options)
-        print('##########')
         user_bt_mapping = cc.user_billing_types.create(**filter_options)
-        
     except Exception, e:
         print(e)
             

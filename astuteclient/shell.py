@@ -190,7 +190,6 @@ class AstuteShell(object):
             return False
 
     def main(self, argv):
-        print('Inside main2 -astuteshell class.main')
         parsed = self.parse_args(argv)
         if parsed == 0:
             return 0
@@ -240,8 +239,6 @@ class AstuteShell(object):
         client_kwargs.update(self.auth_plugin.opts)
         client_kwargs['auth_plugin'] = self.auth_plugin
 
-        print(api_version)
-        print(client_kwargs)
         client = asclient.get_client(api_version, **client_kwargs)
         # call whatever callback was selected
         try:
@@ -292,7 +289,6 @@ class HelpFormatter(argparse.HelpFormatter):
 
 
 def main(args=None):
-    print('Inside main1')
     try:
         if args is None:
             args = sys.argv[1:]
