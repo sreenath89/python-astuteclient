@@ -23,7 +23,7 @@ class UserBillingTypeManager(base.Manager):
         """
         Get the details of a specific user billing type mapping
         """
-        path = "/v1/billing/mapping/" + mapping_id
+        path = "/v1/billing/mapping/%s" % mapping_id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
