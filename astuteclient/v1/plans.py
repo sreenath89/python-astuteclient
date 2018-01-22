@@ -29,7 +29,8 @@ class PlanManager(base.Manager):
         except IndexError:
             return None
     
-    def create(self, plan_name, plan_code, rate, setup_fee, service_type_id, billing_type, ref_id, ram, cpu, storage):
+    def create(self, plan_name, plan_code, rate, setup_fee, 
+               service_type_id, billing_type, ref_id, ram, cpu, storage):
         """
         Create a New Plan
         """
@@ -68,9 +69,21 @@ class PlanManager(base.Manager):
         """
         path = "/v1/plan/%s" % plan_id
         body = kwargs
-        for key in body:
-           if body[key] is None:
-               body.pop(key)
+#       for key in body:
+#            if body[key] is None:
+#                body.pop(key)
+
+        print('####ABOVE BODY####')
+        print body
+        print('####BELOW BODY####')
+        
+        if kwargs['ram']:
+            body['attrs']['ram'] = kwargs['ram']
+        if kwargs['cpu']:
+            body['attrs']['cpu'] = kwargs['cpu']
+        if kwargs['storage']:
+            body['attrs']['storage'] = kwargs['storage']
+            
         try:
             return self._update(path, body)
         except Exception, e:
