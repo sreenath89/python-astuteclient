@@ -16,14 +16,14 @@ class DiscountMappingManager(base.Manager):
         """
         List all discount mappings
         """
-        path = '/v1/discount/mapping'
+        path = "/v1/discount/mapping"
         return self._list(path, "")
     
     def get(self, discount_mapping_id):
         """
         Get details of a discount mapping
         """
-        path = "/v1/discount/mapping/" + discount_mapping_id
+        path = "/v1/discount/mapping/%s" % discount_mapping_id
         try:
             return self._list(path, expect_single=True)[0]
         except IndexError:
