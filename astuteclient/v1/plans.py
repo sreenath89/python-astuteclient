@@ -84,6 +84,8 @@ class PlanManager(base.Manager):
         if kwargs['storage']:
             body['attrs']['storage'] = kwargs['storage']
             
+        print body
+            
         try:
             return self._update(path, body)
         except Exception, e:
